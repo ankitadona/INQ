@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INQ — Campus Café</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f7f5f1;
+            color: #17151f;
+            font-family: "Amazon Ember", Arial, Helvetica, sans-serif;
+        }
+
+        nav {
+            height: 76px;
+            padding: 0 8vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #dedbd5;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #7137d9;
+        }
+
+        .back {
+            text-decoration: none;
+            color: #17151f;
+            font-size: 15px;
+        }
+
+        main {
+            padding: 70px 8vw 100px;
+        }
+
+        .eyebrow {
+            color: #7137d9;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(45px, 6vw, 72px);
+            line-height: 0.95;
+            letter-spacing: -4px;
+            margin-bottom: 15px;
+        }
+
+        h1 span {
+            color: #2D9CDB;
+        }
+
+        .intro {
+            color: #5e5963;
+            font-size: 17px;
+            line-height: 1.5;
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+
+        .cafe-layout {
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 1.35fr 0.65fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .menu-card,
+        .summary-card {
+            background: #ffffff;
+            border: 1px solid #dedbd5;
+            border-radius: 24px;
+        }
+
+        .menu-card {
+            padding: 30px;
+        }
+
+        .summary-card {
+            padding: 30px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 22px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+            border-bottom: 1px solid #eeeae4;
+        }
+
+        .menu-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .item-price {
+            color: #5e5963;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quantity button {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #d6d2cc;
+            background: #f7f5f1;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .quantity button:hover {
+            border-color: #7137d9;
+            color: #7137d9;
+        }
+
+        .quantity span {
+            min-width: 18px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .other-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #dedbd5;
+        }
+
+        .other-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .other-input {
+            width: 100%;
+            min-height: 80px;
+            padding: 13px;
+            border: 1px solid #d6d2cc;
+            border-radius: 10px;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .other-input:focus {
+            border-color: #7137d9;
+        }
+
+        .summary-empty {
+            color: #77727c;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .summary-items {
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 9px 0;
+            font-size: 14px;
+        }
+
+        .summary-row span:last-child {
+            font-weight: 700;
+        }
+
+        .total-row {
+            border-top: 1px solid #dedbd5;
+            margin-top: 12px;
+            padding-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .pickup {
+            margin-top: 25px;
+            padding: 16px;
+            background: #ffe0bb;
+            border-radius: 12px;
+        }
+
+        .pickup-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .pickup-time {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .order-button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #7137d9;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .order-button:hover {
+            opacity: 0.9;
+        }
+
+        /* =========================
+           ORDER CONFIRMATION
+        ========================= */
+
+        .confirmation {
+            display: none;
+            max-width: 1100px;
+            margin-top: 25px;
+            padding: 35px;
+            background: #17151f;
+            color: white;
+            border-radius: 24px;
+        }
+
+        .confirmation.show {
+            display: block;
+        }
+
+        .confirmation-label {
+            color: #f07818;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .token {
+            font-size: clamp(55px, 8vw, 85px);
+            font-weight: 800;
+            letter-spacing: -4px;
+            color: #f07818;
+            margin-bottom: 10px;
+        }
+
+        .confirmation-text {
+            color: #d8d5dc;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .confirmation-details {
+            display: flex;
+            gap: 35px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .detail-label {
+            color: #aaa5ae;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .qr-box {
+            margin-top: 28px;
+            padding: 16px;
+            background: #ffe0bb;
+            color: #17151f;
+            border-radius: 12px;
+            max-width: 360px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 0 6vw;
+            }
+
+            main {
+                padding: 50px 6vw 70px;
+            }
+
+            .cafe-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card {
+                position: static;
+            }
+
+            .confirmation-details {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            INQ<span>.</span>
+        </div>
+
+        <a href="index.html" class="back">
+            ← Back to INQ
+        </a>
+
+    </nav>
+
+
+    <main>
+
+        <p class="eyebrow">
+            INQ / CAMPUS CAFÉ
+        </p>
+
+        <h1>
+            Order ahead.<br>
+            <span>Skip the queue.</span>
+        </h1>
+
+        <p class="intro">
+            Place your order, get an estimated pickup window,
+            and show up when it's actually ready.
+        </p>
+
+
+        <div class="cafe-layout">
+
+            <!-- MENU -->
+
+            <div class="menu-card">
+
+                <p class="card-title">
+                    TODAY'S MENU
+                </p>
+
+
+                <div class="menu-item">
+
+                    <div>
+                        <div class="item-name">
+                            Cold Coffee
+                        </div>
+
+                        <div class="item-price">
+                            ₹25
+                        </div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity('coldCoffee', -1)">−</button>
+                        <span id="coldCoffee-quantity">0</span>
+                        <button onclick="changeQuantity('coldCoffee', 1)">+</button>
+                    </div>
+
+                </div>
+
+
+                <div class="menu-item">
+
+                    <div>
+                        <div class="item-name">
+                            Cold Coffee + Ice Cream
+                        </div>
+
+                        <div class="item-price">
+                            ₹40
+                        </div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity('coldCoffeeIce', -1)">−</button>
+                        <span id="coldCoffeeIce-quantity">0</span>
+                        <button onclick="changeQuantity('coldCoffeeIce', 1)">+</button>
+                    </div>
+
+                </div>
+
+
+                <div class="menu-item">
+
+                    <div>
+                        <div class="item-name">
+                            KitKat Shake
+                        </div>
+
+                        <div class="item-price">
+                            ₹40
+                        </div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity('kitkat', -1)">−</button>
+                        <span id="kitkat-quantity">0</span>
+                        <button onclick="changeQuantity('kitkat', 1)">+</button>
+                    </div>
+
+                </div>
+
+
+                <div class="menu-item">
+
+                    <div>
+                        <div class="item-name">
+                            KitKat Shake + Ice Cream
+                        </div>
+
+                        <div class="item-price">
+                            ₹60
+                        </div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity('kitkatIce', -1)">−</button>
+                        <span id="kitkatIce-quantity">0</span>
+                        <button onclick="changeQuantity('kitkatIce', 1)">+</button>
+                    </div>
+
+                </div>
+
+
+                <div class="menu-item">
+
+                    <div>
+                        <div class="item-name">
+                            Maggie (Veg)
+                        </div>
+
+                        <div class="item-price">
+                            ₹40
+                        </div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity('maggieVeg', -1)">−</button>
+                        <span id="maggieVeg-quantity">0</span>
+                        <button onclick="changeQuantity('maggieVeg', 1)">+</button>
+                    </div>
+
+                </div>
+
+
+                <div class="menu-item">
+
+                    <div>
+                        <div class="item-name">
+                            Maggie (Paneer)
+                        </div>
+
+                        <div class="item-price">
+                            ₹60
+                        </div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity('maggiePaneer', -1)">−</button>
+                        <span id="maggiePaneer-quantity">0</span>
+                        <button onclick="changeQuantity('maggiePaneer', 1)">+</button>
+                    </div>
+
+                </div>
+
+
+                <div class="menu-item">
+
+                    <div>
+                        <div class="item-name">
+                            Sandwich
+                        </div>
+
+                        <div class="item-price">
+                            ₹55
+                        </div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity('sandwich', -1)">−</button>
+                        <span id="sandwich-quantity">0</span>
+                        <button onclick="changeQuantity('sandwich', 1)">+</button>
+                    </div>
+
+                </div>
+
+
+                <div class="other-section">
+
+                    <label class="other-label">
+                        OTHER
+                    </label>
+
+                    <textarea
+                        id="otherItem"
+                        class="other-input"
+                        placeholder="Can't find what you want? Tell us what you'd like..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+
+            <div class="summary-card">
+
+                <p class="card-title">
+                    YOUR ORDER
+                </p>
+
+                <p id="summaryEmpty" class="summary-empty">
+                    Your order is empty.<br>
+                    Add something from the menu.
+                </p>
+
+                <div id="summaryItems" class="summary-items"></div>
+
+                <div class="total-row">
+
+                    <span>Total</span>
+
+                    <span id="total">₹0</span>
+
+                </div>
+
+
+                <div class="pickup">
+
+                    <div class="pickup-label">
+                        ESTIMATED PICKUP
+                    </div>
+
+                    <div class="pickup-time">
+                        9:00 – 9:05 AM
+                    </div>
+
+                </div>
+
+
+                <button class="order-button" onclick="placeOrder()">
+                    PLACE ORDER →
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             ORDER CONFIRMATION
+        ========================= -->
+
+        <div class="confirmation" id="confirmation">
+
+            <div class="confirmation-label">
+                ORDER CONFIRMED
+            </div>
+
+            <div class="token">
+                C-108
+            </div>
+
+            <div class="confirmation-text">
+                Your café order is in the queue.
+                Don't wait at the counter — come back around your pickup window.
+            </div>
+
+
+            <div class="confirmation-details">
+
+                <div>
+                    <div class="detail-label">
+                        ORDERS AHEAD
+                    </div>
+
+                    <div class="detail-value">
+                        3
+                    </div>
+                </div>
+
+
+                <div>
+                    <div class="detail-label">
+                        ESTIMATED PICKUP
+                    </div>
+
+                    <div class="detail-value">
+                        9:00 – 9:05 AM
+                    </div>
+                </div>
+
+
+                <div>
+                    <div class="detail-label">
+                        STATUS
+                    </div>
+
+                    <div class="detail-value">
+                        WAITING
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="qr-box">
+                <strong>At pickup:</strong>
+                Show your token and scan the café QR when your order is received.
+                Your order will then be marked completed and the next order can move forward.
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const menu = {
+
+            coldCoffee: {
+                name: "Cold Coffee",
+                price: 25
+            },
+
+            coldCoffeeIce: {
+                name: "Cold Coffee + Ice Cream",
+                price: 40
+            },
+
+            kitkat: {
+                name: "KitKat Shake",
+                price: 40
+            },
+
+            kitkatIce: {
+                name: "KitKat Shake + Ice Cream",
+                price: 60
+            },
+
+            maggieVeg: {
+                name: "Maggie (Veg)",
+                price: 40
+            },
+
+            maggiePaneer: {
+                name: "Maggie (Paneer)",
+                price: 60
+            },
+
+            sandwich: {
+                name: "Sandwich",
+                price: 55
+            }
+
+        };
+
+
+        const order = {
+
+            coldCoffee: 0,
+            coldCoffeeIce: 0,
+            kitkat: 0,
+            kitkatIce: 0,
+            maggieVeg: 0,
+            maggiePaneer: 0,
+            sandwich: 0
+
+        };
+
+
+        function changeQuantity(item, change) {
+
+            order[item] += change;
+
+            if (order[item] < 0) {
+                order[item] = 0;
+            }
+
+            document.getElementById(
+                `${item}-quantity`
+            ).textContent = order[item];
+
+            updateSummary();
+
+        }
+
+
+        function updateSummary() {
+
+            const summaryItems =
+                document.getElementById("summaryItems");
+
+            const empty =
+                document.getElementById("summaryEmpty");
+
+            const totalElement =
+                document.getElementById("total");
+
+            summaryItems.innerHTML = "";
+
+            let total = 0;
+            let itemCount = 0;
+
+
+            Object.keys(order).forEach(item => {
+
+                const quantity = order[item];
+
+                if (quantity > 0) {
+
+                    const itemData = menu[item];
+
+                    const itemTotal =
+                        quantity * itemData.price;
+
+                    total += itemTotal;
+
+                    itemCount += quantity;
+
+
+                    const row =
+                        document.createElement("div");
+
+                    row.className = "summary-row";
+
+                    row.innerHTML = `
+                        <span>
+                            ${quantity} × ${itemData.name}
+                        </span>
+
+                        <span>
+                            ₹${itemTotal}
+                        </span>
+                    `;
+
+                    summaryItems.appendChild(row);
+
+                }
+
+            });
+
+
+            if (itemCount === 0) {
+
+                empty.style.display = "block";
+
+            } else {
+
+                empty.style.display = "none";
+
+            }
+
+            totalElement.textContent = `₹${total}`;
+
+        }
+
+
+        function placeOrder() {
+
+            let hasItems = false;
+
+            Object.values(order).forEach(quantity => {
+
+                if (quantity > 0) {
+                    hasItems = true;
+                }
+
+            });
+
+
+            const other =
+                document.getElementById("otherItem")
+                .value
+                .trim();
+
+
+            if (!hasItems && other === "") {
+
+                alert("Please add something to your order.");
+
+                return;
+
+            }
+
+
+            /*
+             * DEMO TOKEN
+             * In the real backend this will be generated
+             * automatically from the café queue.
+             */
+
+            const token = "C-108";
+
+
+            const confirmation =
+                document.getElementById("confirmation");
+
+
+            confirmation.classList.add("show");
+
+
+            confirmation.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>

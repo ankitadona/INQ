@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INQ — Dean Office</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f7f5f1;
+            color: #17151f;
+            font-family: "Amazon Ember", Arial, Helvetica, sans-serif;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            height: 76px;
+            padding: 0 8vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #dedbd5;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #7137d9;
+        }
+
+        .back {
+            text-decoration: none;
+            color: #17151f;
+            font-size: 15px;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            padding: 70px 8vw 100px;
+        }
+
+        .eyebrow {
+            color: #7137d9;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(45px, 6vw, 72px);
+            line-height: 0.95;
+            letter-spacing: -4px;
+            margin-bottom: 55px;
+        }
+
+        h1 span {
+            color: #7137d9;
+        }
+
+        /* =========================
+           DASHBOARD
+        ========================= */
+
+        .dashboard {
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            border-radius: 24px;
+            padding: 32px;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 22px;
+        }
+
+        /* =========================
+           CROWD
+        ========================= */
+
+        .crowd-card {
+            background: #ded4ff;
+        }
+
+        .crowd-number {
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: -4px;
+        }
+
+        .crowd-label {
+            color: #5e5963;
+            margin-top: 2px;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 7px 13px;
+            border-radius: 20px;
+            background: #ccefd9;
+            color: #176b39;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           ESTIMATED TURN
+        ========================= */
+
+        .time-card {
+            background: #ffffff;
+            border: 1px solid #dedbd5;
+        }
+
+        .estimated-time {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .time-note {
+            margin-top: 8px;
+            color: #5e5963;
+        }
+
+        .service-time {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #5e5963;
+        }
+
+        /* =========================
+           SERVICE SELECTION
+        ========================= */
+
+        .service-card {
+            background: #ffffff;
+            border: 1px solid #dedbd5;
+        }
+
+        .service-card h2 {
+            font-size: 24px;
+            margin-bottom: 22px;
+        }
+
+        .service-option {
+            display: block;
+            padding: 13px 15px;
+            margin-bottom: 9px;
+            border: 1px solid #dedbd5;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .service-option:hover {
+            border-color: #7137d9;
+        }
+
+        .service-option input {
+            margin-right: 10px;
+            accent-color: #7137d9;
+        }
+
+        .join-button {
+            width: 100%;
+            margin-top: 12px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #7137d9;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .join-button:hover {
+            opacity: 0.9;
+        }
+
+        /* =========================
+           BEFORE YOU JOIN
+        ========================= */
+
+        .info-card {
+            background: #191522;
+            color: white;
+        }
+
+        .info-card ul {
+            list-style: none;
+        }
+
+        .info-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            color: #ddd9e5;
+            font-size: 15px;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li::before {
+            content: "✓";
+            color: #b58cff;
+            margin-right: 10px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           TOKEN CONFIRMATION
+        ========================= */
+
+        .token-confirmation {
+            background: #ffffff;
+            border: 1px solid #dedbd5;
+            text-align: center;
+
+            display: none;
+        }
+
+        .token-confirmation.show {
+            display: block;
+        }
+
+        .confirmation-label {
+            color: #7137d9;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .your-token {
+            font-size: 58px;
+            font-weight: 800;
+            letter-spacing: -3px;
+            line-height: 1;
+        }
+
+        .token-subtitle {
+            color: #5e5963;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-top: 8px;
+            margin-bottom: 25px;
+        }
+
+        .token-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .token-detail {
+            background: #f7f5f1;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .token-detail span {
+            display: block;
+            font-size: 10px;
+            color: #5e5963;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .token-detail strong {
+            font-size: 16px;
+        }
+
+        .waiting-status {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 7px 13px;
+            border-radius: 20px;
+            background: #ccefd9;
+            color: #176b39;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           QUEUE PREVIEW
+        ========================= */
+
+        .queue-card {
+            grid-column: 1 / -1;
+            background: #efede8;
+            border: 1px solid #dedbd5;
+        }
+
+        .queue-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .queue-top h2 {
+            font-size: 24px;
+        }
+
+        .queue-top span {
+            color: #5e5963;
+            font-size: 14px;
+        }
+
+        .queue-list {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .token {
+            background: white;
+            border: 1px solid #dedbd5;
+            padding: 13px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .token.completed {
+            color: #777;
+            text-decoration: line-through;
+        }
+
+        .token.current {
+            background: #7137d9;
+            color: white;
+            border-color: #7137d9;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 750px) {
+
+            nav {
+                padding: 0 6vw;
+            }
+
+            main {
+                padding: 50px 6vw 70px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .queue-card {
+                grid-column: auto;
+            }
+
+            .token-details {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav>
+
+        <div class="logo">
+            INQ<span>.</span>
+        </div>
+
+        <a href="index.html" class="back">
+            ← Back to INQ
+        </a>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main>
+
+        <p class="eyebrow">
+            INQ / DEAN OFFICE
+        </p>
+
+        <h1>
+            A clearer view<br>
+            <span>Of the wait</span>
+        </h1>
+
+
+        <div class="dashboard">
+
+
+            <!-- =========================
+                 CURRENT CROWD
+            ========================= -->
+
+            <div class="card crowd-card">
+
+                <p class="card-title">
+                    CURRENT CROWD
+                </p>
+
+                <div class="crowd-number">
+                    4
+                </div>
+
+                <p class="crowd-label">
+                    students waiting
+                </p>
+
+                <span class="status">
+                    LOW CROWD
+                </span>
+
+            </div>
+
+
+            <!-- =========================
+                 ESTIMATED TURN
+            ========================= -->
+
+            <div class="card time-card">
+
+                <p class="card-title">
+                    ESTIMATED NEXT TURN
+                </p>
+
+                <div class="estimated-time">
+                    10:35 AM
+                </div>
+
+                <p class="time-note">
+                    Based on the current queue
+                </p>
+
+                <p class="service-time">
+                    Average service time: ~3 min / student
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 SERVICE SELECTION
+            ========================= -->
+
+            <div class="card service-card">
+
+                <p class="card-title">
+                    DEAN OFFICE
+                </p>
+
+                <h2>
+                    What do you need?
+                </h2>
+
+
+                <label class="service-option">
+                    <input
+                        type="radio"
+                        name="service"
+                        checked
+                    >
+                    Document Verification
+                </label>
+
+
+                <label class="service-option">
+                    <input
+                        type="radio"
+                        name="service"
+                    >
+                    Signature
+                </label>
+
+
+                <label class="service-option">
+                    <input
+                        type="radio"
+                        name="service"
+                    >
+                    Document Collection
+                </label>
+
+
+                <label class="service-option">
+                    <input
+                        type="radio"
+                        name="service"
+                    >
+                    Other
+                </label>
+
+
+                <button
+                    class="join-button"
+                    onclick="joinQueue()"
+                >
+                    JOIN QUEUE
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 TOKEN CONFIRMATION
+            ========================= -->
+
+            <div
+                class="card token-confirmation"
+                id="tokenConfirmation"
+            >
+
+                <p class="confirmation-label">
+                    QUEUE JOINED
+                </p>
+
+                <div class="your-token">
+                    D-27
+                </div>
+
+                <p class="token-subtitle">
+                    YOUR TOKEN
+                </p>
+
+
+                <div class="token-details">
+
+                    <div class="token-detail">
+
+                        <span>
+                            PEOPLE AHEAD
+                        </span>
+
+                        <strong>
+                            3 students
+                        </strong>
+
+                    </div>
+
+
+                    <div class="token-detail">
+
+                        <span>
+                            ESTIMATED TURN
+                        </span>
+
+                        <strong>
+                            10:35 AM
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <span class="waiting-status">
+                    WAITING
+                </span>
+
+            </div>
+
+
+            <!-- =========================
+                 BEFORE YOU JOIN
+            ========================= -->
+
+            <div class="card info-card">
+
+                <p class="card-title">
+                    BEFORE YOU JOIN
+                </p>
+
+                <ul>
+
+                    <li>
+                        Select the service you need
+                    </li>
+
+                    <li>
+                        Keep your documents ready
+                    </li>
+
+                    <li>
+                        You'll receive a token
+                    </li>
+
+                    <li>
+                        No need to stand in the queue
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- =========================
+                 QUEUE PREVIEW
+            ========================= -->
+
+            <div class="card queue-card">
+
+                <div class="queue-top">
+
+                    <h2>
+                        Queue right now
+                    </h2>
+
+                    <span>
+                        4 students waiting
+                    </span>
+
+                </div>
+
+
+                <div class="queue-list">
+
+                    <div class="token completed">
+                        D-23
+                    </div>
+
+                    <div class="token completed">
+                        D-24
+                    </div>
+
+                    <div class="token">
+                        D-25
+                    </div>
+
+                    <div class="token">
+                        D-26
+                    </div>
+
+                    <div class="token current">
+                        YOU → D-27
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        function joinQueue() {
+
+            const confirmation =
+                document.getElementById("tokenConfirmation");
+
+            confirmation.classList.add("show");
+
+            confirmation.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>

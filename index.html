@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INQ — Campus Queue</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <!-- Logo -->
+        <a href="#" class="logo">
+            INQ<span>.</span>
+        </a>
+
+        <!-- Navigation -->
+        <div class="nav-services">
+
+            <!-- Dean -->
+            <a href="#dean" class="nav-service">
+                <span class="nav-icon dean-dot"></span>
+
+                <div>
+                    <p class="nav-title">Dean</p>
+                    <p class="nav-status" id="dean-nav-status">
+                        Checking...
+                    </p>
+                </div>
+            </a>
+
+            <!-- Printing -->
+            <a href="#printing" class="nav-service">
+                <span class="nav-icon printing-dot"></span>
+
+                <div>
+                    <p class="nav-title">Printing</p>
+                    <p class="nav-status" id="printing-nav-status">
+                        Checking...
+                    </p>
+                </div>
+            </a>
+
+            <!-- Cafe -->
+            <a href="#cafe" class="nav-service">
+                <span class="nav-icon cafe-dot"></span>
+
+                <div>
+                    <p class="nav-title">Café</p>
+                    <p class="nav-status" id="cafe-nav-status">
+                        Checking...
+                    </p>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Join button -->
+        <button class="nav-button">
+            Get Started →
+        </button>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    CAMPUS WAITING, REIMAGINED
+                </p>
+
+                <h1>
+                    Don't wait<br>
+                    <span>in line.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Got better things to do than stare at people's backs.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <button class="primary-button">
+                        Explore Services →
+                    </button>
+
+                    <button class="secondary-button">
+                        How INQ works
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Hero visual -->
+
+            <div class="hero-visual">
+
+                <div class="floating-card card-purple">
+
+                    <p class="mini-label">
+                        YOUR NEXT TURN
+                    </p>
+
+                    <p class="big-time">
+                        10:35
+                    </p>
+
+                    <p class="small-text">
+                        AM · Dean Office
+                    </p>
+
+                </div>
+
+
+                <div class="queue-card">
+
+                    <div class="queue-top">
+
+                        <span class="live-dot"></span>
+
+                        <span>
+                            LIVE QUEUE
+                        </span>
+
+                    </div>
+
+                    <div class="queue-number">
+                        08
+                    </div>
+
+                    <p class="queue-text">
+                        people ahead of you
+                    </p>
+
+                    <div class="queue-line"></div>
+
+                    <div class="queue-bottom">
+
+                        <span>
+                            EST. WAIT
+                        </span>
+
+                        <strong>
+                            24 MIN
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="floating-card card-orange">
+
+                    <p class="mini-label">
+                        INQ
+                    </p>
+
+                    <p class="orange-text">
+                        GO.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SERVICE INTRO ================= -->
+
+        <section class="services-section">
+
+            <div class="section-heading">
+
+                <p class="eyebrow">
+                    ONE CAMPUS. THREE SERVICES.
+                </p>
+
+                <h2>
+                    See the queue.<br>
+                    <span>Choose your moment.</span>
+                </h2>
+
+                <p>
+                    Your token is safe. Go waste time somewhere else.
+                </p>
+
+            </div>
+
+
+            <!-- ================= SERVICE CARDS ================= -->
+
+            <div class="service-grid">
+
+
+                <!-- DEAN -->
+
+                <article
+                    class="service-card dean-card"
+                    id="dean"
+                >
+
+                    <div class="service-header">
+
+                        <div class="service-symbol dean-symbol">
+                            D
+                        </div>
+
+                        <span
+                            class="crowd-badge"
+                            id="dean-badge"
+                        >
+                            Checking
+                        </span>
+
+                    </div>
+
+                    <p class="service-code">
+                        INQ / DEAN
+                    </p>
+
+                    <h3>
+                        Dean Office
+                    </h3>
+
+                    <p class="service-description">
+                        Join the virtual queue and reach the office
+                        around your estimated time.
+                    </p>
+
+
+                    <div class="service-data">
+
+                        <div>
+                            <span>STUDENTS WAITING</span>
+                            <strong id="dean-count">
+                                --
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>EST. NEXT TURN</span>
+                            <strong id="dean-time">
+                                --
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <button class="service-button">
+                        Join Dean Queue →
+                    </button>
+
+                </article>
+
+
+                <!-- PRINTING -->
+
+                <article
+                    class="service-card printing-card"
+                    id="printing"
+                >
+
+                    <div class="service-header">
+
+                        <div class="service-symbol printing-symbol">
+                            P
+                        </div>
+
+                        <span
+                            class="crowd-badge"
+                            id="printing-badge"
+                        >
+                            Checking
+                        </span>
+
+                    </div>
+
+                    <p class="service-code">
+                        INQ / PRINT
+                    </p>
+
+                    <h3>
+                        Printing Shop
+                    </h3>
+
+                    <p class="service-description">
+                        Upload your document and know when your
+                        print job is expected to be ready.
+                    </p>
+
+
+                    <div class="service-data">
+
+                        <div>
+                            <span>JOBS AHEAD</span>
+                            <strong id="printing-count">
+                                --
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>EST. READY</span>
+                            <strong id="printing-time">
+                                --
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <button class="service-button">
+                        Start Print Job →
+                    </button>
+
+                </article>
+
+
+                <!-- CAFE -->
+
+                <article
+                    class="service-card cafe-card"
+                    id="cafe"
+                >
+
+                    <div class="service-header">
+
+                        <div class="service-symbol cafe-symbol">
+                            C
+                        </div>
+
+                        <span
+                            class="crowd-badge"
+                            id="cafe-badge"
+                        >
+                            Checking
+                        </span>
+
+                    </div>
+
+                    <p class="service-code">
+                        INQ / CAFÉ
+                    </p>
+
+                    <h3>
+                        Campus Café
+                    </h3>
+
+                    <p class="service-description">
+                        Order ahead, get your estimated preparation
+                        window, and avoid the crowd.
+                    </p>
+
+
+                    <div class="service-data">
+
+                        <div>
+                            <span>ORDERS AHEAD</span>
+                            <strong id="cafe-count">
+                                --
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>PICKUP AROUND</span>
+                            <strong id="cafe-time">
+                                --
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <button class="service-button">
+                        Order from Café →
+                    </button>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HOW IT WORKS ================= -->
+
+        <section class="how-section">
+
+            <p class="eyebrow">
+                HOW INQ WORKS
+            </p>
+
+            <h2>
+                Join. Know. <span>Go.</span>
+            </h2>
+
+            <div class="steps">
+
+                <div class="step">
+                    <span>01</span>
+                    <h3>Join</h3>
+                    <p>
+                        Choose a campus service and enter its virtual queue.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <span>02</span>
+                    <h3>Know</h3>
+                    <p>
+                        See your position, crowd level and estimated time.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <span>03</span>
+                    <h3>Go</h3>
+                    <p>
+                        Reach the service when you actually need to.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <div class="footer-logo">
+                INQ<span>.</span>
+            </div>
+
+            <p>
+                Less waiting. More doing.
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+
+    <!-- ================= SERVICE CARD NAVIGATION ================= -->
+
+    <script>
+
+        document.getElementById("dean").addEventListener("click", function () {
+            window.location.href = "dean.html";
+        });
+
+        document.getElementById("printing").addEventListener("click", function () {
+            window.location.href = "printing.html";
+        });
+
+        document.getElementById("cafe").addEventListener("click", function () {
+            window.location.href = "cafe.html";
+        });
+
+    </script>
+
+</body>
+</html>

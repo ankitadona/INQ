@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>INQ — Printing Shop</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8f7f4;
+    color: #19171f;
+}
+
+nav {
+    height: 76px;
+    padding: 0 8vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dedad3;
+    background: #f8f7f4;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.logo span {
+    color: #7137d9;
+}
+
+.back {
+    text-decoration: none;
+    color: #19171f;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.back:hover {
+    color: #f07818;
+}
+
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 70px 7vw 100px;
+}
+
+.eyebrow {
+    color: #f07818;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+h1 {
+    font-size: clamp(45px, 6vw, 76px);
+    line-height: .95;
+    letter-spacing: -4px;
+    margin-bottom: 25px;
+}
+
+h1 span {
+    color: #f07818;
+}
+
+.intro {
+    color: #625e66;
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 680px;
+    margin-bottom: 45px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #dedad3;
+    border-radius: 22px;
+    padding: 30px;
+}
+
+.card h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.description {
+    color: #77727b;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+
+/* UPLOAD */
+
+.upload-box {
+    min-height: 270px;
+    border: 2px dashed #e9b477;
+    background: #fffaf4;
+    border-radius: 18px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    cursor: pointer;
+    padding: 25px;
+}
+
+.upload-box:hover {
+    background: #fff2e3;
+    border-color: #f07818;
+}
+
+.upload-icon {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.upload-box strong {
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.upload-box p {
+    color: #77727b;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.choose-btn {
+    background: #f07818;
+    color: white;
+    padding: 11px 20px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* IMPORTANT: hides the real file input */
+#fileInput {
+    display: none;
+}
+
+.file-name {
+    margin-top: 13px;
+    font-size: 13px;
+    color: #7137d9;
+    font-weight: 700;
+}
+
+
+/* SETTINGS */
+
+.setting {
+    margin-bottom: 22px;
+}
+
+.setting > label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 9px;
+}
+
+select,
+input[type="text"] {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d8d4ce;
+    border-radius: 10px;
+    background: #faf9f7;
+    font-size: 14px;
+    outline: none;
+}
+
+
+/* RADIO BUTTONS */
+
+.radio-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.radio-option input {
+    display: none;
+}
+
+.radio-option span {
+    display: block;
+    padding: 11px 15px;
+    border: 1px solid #d8d4ce;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.radio-option input:checked + span {
+    background: #fff0df;
+    border-color: #e9a568;
+    color: #c7610b;
+    font-weight: 700;
+}
+
+
+/* PAGES */
+
+.page-options {
+    display: flex;
+    gap: 10px;
+}
+
+.page-option {
+    flex: 1;
+}
+
+.page-option input {
+    display: none;
+}
+
+.page-option span {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #d8d4ce;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.page-option input:checked + span {
+    background: #fff0df;
+    border-color: #e9a568;
+    color: #c7610b;
+    font-weight: 700;
+}
+
+.custom-pages {
+    display: none;
+    margin-top: 10px;
+}
+
+.custom-pages.active {
+    display: block;
+}
+
+
+/* COPIES */
+
+.copies {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.copies button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 9px;
+    background: #19171f;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.copies button:hover {
+    background: #f07818;
+}
+
+#copies {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+
+
+/* SUMMARY */
+
+.summary {
+    background: #faf9f7;
+    border: 1px solid #e1ddd6;
+    border-radius: 15px;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 2;
+}
+
+
+/* ESTIMATE */
+
+.estimate {
+    grid-column: 1 / -1;
+    background: #ffe3c2;
+    border: none;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.estimate-label {
+    color: #8b5a25;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    margin-bottom: 8px;
+}
+
+.estimate-time {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -2px;
+}
+
+.jobs {
+    text-align: right;
+}
+
+.jobs strong {
+    display: block;
+    font-size: 30px;
+}
+
+
+/* SUBMIT */
+
+.submit-area {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.submit-btn {
+    border: none;
+    background: #19171f;
+    color: white;
+    padding: 17px 32px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #f07818;
+}
+
+
+/* TOKEN CONFIRMATION */
+
+.confirmation {
+    display: none;
+    margin-top: 25px;
+    background: #19171f;
+    color: white;
+    border-radius: 22px;
+    padding: 32px;
+}
+
+.confirmation.show {
+    display: block;
+}
+
+.confirmation-label {
+    color: #f07818;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.token {
+    color: #f07818;
+    font-size: 60px;
+    font-weight: 800;
+    letter-spacing: -3px;
+    margin-bottom: 10px;
+}
+
+.confirmation p {
+    color: #d5d1d8;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.confirmation strong {
+    color: white;
+}
+
+
+@media (max-width: 800px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .estimate {
+        grid-column: auto;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .jobs {
+        text-align: left;
+    }
+
+    .submit-area {
+        grid-column: auto;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<nav>
+    <div class="logo">
+        INQ<span>.</span>
+    </div>
+
+    <a href="index.html" class="back">
+        ← Back to INQ
+    </a>
+</nav>
+
+
+<main>
+
+    <p class="eyebrow">PRINTING SHOP</p>
+
+    <h1>
+        Upload. Get your token.<br>
+        <span>Come back when it's ready.</span>
+    </h1>
+
+    <p class="intro">
+        Send your document before you reach the shop.
+        Choose your print settings, get an estimated completion time,
+        and stop wasting time in line.
+    </p>
+
+
+    <div class="grid">
+
+
+        <!-- UPLOAD -->
+
+        <section class="card">
+
+            <h2>Upload your document</h2>
+
+            <p class="description">
+                PDF, Word or PowerPoint files are supported.
+            </p>
+
+            <label for="fileInput" class="upload-box">
+
+                <div class="upload-icon">↑</div>
+
+                <strong>Drop your document here</strong>
+
+                <p>
+                    PDF · DOC · DOCX · PPT · PPTX
+                </p>
+
+                <span class="choose-btn">
+                    CHOOSE FILE
+                </span>
+
+                <div class="file-name" id="fileName"></div>
+
+            </label>
+
+            <input
+                type="file"
+                id="fileInput"
+                accept=".pdf,.doc,.docx,.ppt,.pptx"
+            >
+
+        </section>
+
+
+        <!-- PRINT SETTINGS -->
+
+        <section class="card">
+
+            <h2>Print settings</h2>
+
+            <p class="description">
+                Choose how you want your document printed.
+            </p>
+
+
+            <div class="setting">
+
+                <label>Paper size</label>
+
+                <select id="paperSize">
+
+                    <option>A4</option>
+                    <option>A3</option>
+                    <option>A5</option>
+                    <option>A2</option>
+                    <option>A1</option>
+                    <option>Letter</option>
+                    <option>Legal</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="setting">
+
+                <label>Print colour</label>
+
+                <div class="radio-group">
+
+                    <label class="radio-option">
+                        <input
+                            type="radio"
+                            name="colour"
+                            value="Black & White"
+                            checked
+                        >
+                        <span>Black & White</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input
+                            type="radio"
+                            name="colour"
+                            value="Colour"
+                        >
+                        <span>Colour</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="setting">
+
+                <label>Print sides</label>
+
+                <div class="radio-group">
+
+                    <label class="radio-option">
+                        <input
+                            type="radio"
+                            name="sides"
+                            value="Single-sided"
+                            checked
+                        >
+                        <span>Single-sided</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input
+                            type="radio"
+                            name="sides"
+                            value="Double-sided"
+                        >
+                        <span>Double-sided</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAGES & COPIES -->
+
+        <section class="card">
+
+            <h2>Pages & copies</h2>
+
+            <p class="description">
+                Tell us which pages and how many copies you need.
+            </p>
+
+
+            <div class="setting">
+
+                <label>Pages</label>
+
+                <div class="page-options">
+
+                    <label class="page-option">
+
+                        <input
+                            type="radio"
+                            name="pages"
+                            value="All pages"
+                            checked
+                        >
+
+                        <span>All pages</span>
+
+                    </label>
+
+
+                    <label class="page-option">
+
+                        <input
+                            type="radio"
+                            name="pages"
+                            value="Custom"
+                        >
+
+                        <span>Custom</span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="custom-pages" id="customPages">
+
+                    <input
+                        type="text"
+                        id="pageRange"
+                        placeholder="Example: 1-5, 8, 10-12"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="setting">
+
+                <label>Copies</label>
+
+                <div class="copies">
+
+                    <button onclick="changeCopies(-1)">
+                        −
+                    </button>
+
+                    <span id="copies">1</span>
+
+                    <button onclick="changeCopies(1)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUMMARY -->
+
+        <section class="card">
+
+            <h2>Job summary</h2>
+
+            <p class="description">
+                Your selected print requirements.
+            </p>
+
+            <div class="summary">
+
+                <div>
+                    <strong>Paper:</strong>
+                    <span id="summaryPaper">A4</span>
+                </div>
+
+                <div>
+                    <strong>Colour:</strong>
+                    <span id="summaryColour">Black & White</span>
+                </div>
+
+                <div>
+                    <strong>Sides:</strong>
+                    <span id="summarySides">Single-sided</span>
+                </div>
+
+                <div>
+                    <strong>Pages:</strong>
+                    <span id="summaryPages">All pages</span>
+                </div>
+
+                <div>
+                    <strong>Copies:</strong>
+                    <span id="summaryCopies">1</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ESTIMATE -->
+
+        <section class="card estimate">
+
+            <div>
+
+                <div class="estimate-label">
+                    ESTIMATED PRINT COMPLETION
+                </div>
+
+                <div class="estimate-time" id="estimateTime">
+                    11:20 AM
+                </div>
+
+            </div>
+
+            <div class="jobs">
+
+                <strong>11</strong>
+
+                <span>
+                    print jobs ahead
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUBMIT -->
+
+        <div class="submit-area">
+
+            <button
+                class="submit-btn"
+                onclick="submitJob()"
+            >
+                SUBMIT PRINT JOB →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONFIRMATION -->
+
+    <div class="confirmation" id="confirmation">
+
+        <div class="confirmation-label">
+            PRINT JOB SUBMITTED
+        </div>
+
+        <div class="token">
+            P-34
+        </div>
+
+        <p>
+            <strong>Your print queue token</strong>
+            <br><br>
+
+            11 print jobs ahead of you.
+            <br>
+
+            Estimated completion:
+            <strong>11:20 AM</strong>
+        </p>
+
+        <br>
+
+        <p>
+            Don't wait at the shop.
+            Come back when your print job is ready.
+        </p>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const fileInput = document.getElementById("fileInput");
+const fileName = document.getElementById("fileName");
+
+
+// FILE UPLOAD
+
+fileInput.addEventListener("change", function () {
+
+    if (this.files.length > 0) {
+
+        fileName.textContent =
+            "✓ " + this.files[0].name;
+
+    }
+
+});
+
+
+// COPIES
+
+let copies = 1;
+
+function changeCopies(amount) {
+
+    copies += amount;
+
+    if (copies < 1) {
+        copies = 1;
+    }
+
+    if (copies > 50) {
+        copies = 50;
+    }
+
+    document.getElementById("copies").textContent = copies;
+
+    document.getElementById("summaryCopies").textContent = copies;
+}
+
+
+// PAPER SIZE
+
+document.getElementById("paperSize")
+.addEventListener("change", function () {
+
+    document.getElementById("summaryPaper")
+    .textContent = this.value;
+
+});
+
+
+// COLOUR
+
+document.querySelectorAll('input[name="colour"]')
+.forEach(function (radio) {
+
+    radio.addEventListener("change", function () {
+
+        document.getElementById("summaryColour")
+        .textContent = this.value;
+
+    });
+
+});
+
+
+// SIDES
+
+document.querySelectorAll('input[name="sides"]')
+.forEach(function (radio) {
+
+    radio.addEventListener("change", function () {
+
+        document.getElementById("summarySides")
+        .textContent = this.value;
+
+    });
+
+});
+
+
+// PAGES
+
+document.querySelectorAll('input[name="pages"]')
+.forEach(function (radio) {
+
+    radio.addEventListener("change", function () {
+
+        const customPages =
+            document.getElementById("customPages");
+
+        if (this.value === "Custom") {
+
+            customPages.classList.add("active");
+
+            document.getElementById("summaryPages")
+            .textContent = "Custom range";
+
+        } else {
+
+            customPages.classList.remove("active");
+
+            document.getElementById("summaryPages")
+            .textContent = "All pages";
+
+        }
+
+    });
+
+});
+
+
+// CUSTOM PAGE RANGE
+
+document.getElementById("pageRange")
+.addEventListener("input", function () {
+
+    document.getElementById("summaryPages")
+    .textContent = this.value || "Custom range";
+
+});
+
+
+// SUBMIT PRINT JOB
+
+function submitJob() {
+
+    if (fileInput.files.length === 0) {
+
+        alert("Please upload your document first.");
+
+        return;
+    }
+
+    const confirmation =
+        document.getElementById("confirmation");
+
+    confirmation.classList.add("show");
+
+    confirmation.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
