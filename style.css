@@ -187,32 +187,6 @@ body {
 }
 
 
-/* Button */
-
-.nav-button {
-    border: none;
-
-    background: #17131f;
-
-    color: white;
-
-    padding: 12px 18px;
-
-    border-radius: 100px;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.nav-button:hover {
-    transform: translateY(-1px);
-}
-
 
 /* =========================
    HERO
@@ -1022,11 +996,6 @@ footer p {
     .nav-icon {
         width: 6px;
         height: 6px;
-    }
-
-    /* Hide only Get Started */
-    .nav-button {
-        display: none;
     }
 
     .logo {
