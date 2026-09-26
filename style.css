@@ -1,3 +1,52 @@
+/* =========================================================
+   AMAZON EMBER / EMBER DISPLAY FONTS
+========================================================= */
+
+/* Amazon Ember Light */
+@font-face {
+    font-family: "Amazon Ember Light";
+    src:
+        url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_lt-019e0ec3f9b521056e66e31fdcbc8323e5cd1938._V299195751_.woff2")
+        format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Amazon Ember Regular */
+@font-face {
+    font-family: "Amazon Ember";
+    src:
+        url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-fd81bacb6a659a8c8c95828226b74594ab985060._V299195749_.woff2")
+        format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Amazon Ember Bold */
+@font-face {
+    font-family: "Amazon Ember";
+    src:
+        url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2")
+        format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Amazon Ember Heavy */
+@font-face {
+    font-family: "Amazon Ember Heavy";
+    src:
+        url("https://m.media-amazon.com/images/G/01/acs/fonts/amazonember_he-webfont._V278446113_.woff2")
+        format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+
 /* =========================
    GLOBAL
 ========================= */
@@ -16,11 +65,6 @@ body {
     background: #f7f5f1;
     color: #17151f;
 
-    /*
-       AWS-like clean sans-serif.
-       "Amazon Ember" will be used if available,
-       otherwise the browser falls back.
-    */
     font-family: "Amazon Ember", Arial, Helvetica, sans-serif;
 
     overflow-x: hidden;
@@ -58,8 +102,10 @@ body {
 .logo {
     text-decoration: none;
 
+    font-family: "Amazon Ember Heavy", "Amazon Ember", Arial, sans-serif;
+
     font-size: 28px;
-    font-weight: 800;
+    font-weight: 900;
 
     letter-spacing: -1.5px;
 
@@ -216,14 +262,27 @@ body {
 }
 
 
+/* =========================================================
+   MAIN HERO HEADING
+   Amazon Ember Display / Heavy
+========================================================= */
+
 .hero h1 {
+    font-family:
+        "Amazon Ember Display",
+        "Amazon Ember Heavy",
+        "Amazon Ember",
+        Arial,
+        Helvetica,
+        sans-serif;
+
     font-size: clamp(60px, 8vw, 105px);
 
     line-height: 0.88;
 
-    letter-spacing: -6px;
+    letter-spacing: -3px;
 
-    font-weight: 800;
+    font-weight: 900;
 
     margin-bottom: 35px;
 }
@@ -234,15 +293,20 @@ body {
 }
 
 
+/* Hero subtext */
+
 .hero-description {
+    font-family:
+        "Amazon Ember",
+        Arial,
+        Helvetica,
+        sans-serif;
+
     max-width: 510px;
-
     font-size: 18px;
-
     line-height: 1.6;
-
+    font-weight: 400;
     color: #5e5963;
-
     margin-bottom: 35px;
 }
 
@@ -491,29 +555,46 @@ body {
 }
 
 
+/* =========================================================
+   SERVICES HEADING
+   Light / Regular — NOT BOLD
+========================================================= */
+
 .section-heading h2 {
+    font-family:
+        "Amazon Ember Display",
+        "Amazon Ember Light",
+        "Amazon Ember",
+        Arial,
+        Helvetica,
+        sans-serif;
+
     font-size: clamp(45px, 6vw, 76px);
-
     line-height: 0.95;
-
-    letter-spacing: -4px;
-
+    letter-spacing: -2px;
+    font-weight: 600;
     margin-bottom: 25px;
 }
 
 
 .section-heading h2 span {
-    color: #7137d9;
+    color: #695196;
 }
 
 
+/* Services subtext */
+
 .section-heading > p:last-child {
+    font-family:
+        "Amazon Ember",
+        Arial,
+        Helvetica,
+        sans-serif;
+
     font-size: 17px;
-
     line-height: 1.6;
-
+    font-weight: 400;
     color: #67616a;
-
     max-width: 520px;
 }
 
@@ -899,7 +980,7 @@ footer p {
     }
 
     .hero h1 {
-        letter-spacing: -4px;
+        letter-spacing: -3px;
     }
 
     .hero-buttons {
