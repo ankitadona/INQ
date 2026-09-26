@@ -534,10 +534,10 @@ body {
    Light / Regular — NOT BOLD
 ========================================================= */
 .section-heading h2 {
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: "Amazon Ember", Arial, sans-serif;
     font-size: clamp(45px, 6vw, 76px);
     line-height: 0.95;
-    letter-spacing: -2.5px;
+    letter-spacing: -2px;
     font-weight: 700;
     margin-bottom: 25px;
 }
