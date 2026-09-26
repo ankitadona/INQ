@@ -943,13 +943,34 @@ footer p {
         padding: 0 20px;
     }
 
+    /* Keep service status visible on mobile */
     .nav-services {
-        display: none;
+        display: flex;
+        gap: 4px;
+        margin-right: 0;
+    }
+
+    .nav-service {
+        padding: 7px 8px;
+        gap: 6px;
+    }
+
+    .nav-title {
+        font-size: 11px;
+    }
+
+    .nav-status {
+        font-size: 8px;
+        margin-top: 2px;
+    }
+
+    .nav-icon {
+        width: 7px;
+        height: 7px;
     }
 
     .hero {
         grid-template-columns: 1fr;
-
         padding: 70px 25px;
     }
 
@@ -973,10 +994,44 @@ footer p {
 }
 
 
+/* =========================
+   SMALL PHONES
+========================= */
+
 @media (max-width: 500px) {
 
+    /* Keep the three service statuses */
+    .nav-services {
+        display: flex;
+        gap: 1px;
+    }
+
+    .nav-service {
+        padding: 6px 5px;
+        gap: 4px;
+    }
+
+    .nav-title {
+        font-size: 10px;
+    }
+
+    .nav-status {
+        font-size: 7px;
+    }
+
+    .nav-icon {
+        width: 6px;
+        height: 6px;
+    }
+
+    /* Hide only Get Started */
     .nav-button {
         display: none;
+    }
+
+    .logo {
+        font-size: 23px;
+        letter-spacing: -1px;
     }
 
     .hero h1 {
