@@ -7,6 +7,40 @@
 <title>INQ — Printing Shop</title>
 
 <style>
+
+/* =========================
+   AMAZON EMBER FONTS
+========================= */
+
+@font-face {
+    font-family: "Amazon Ember";
+    src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-fd81bacb6a659a8c8c95828226b74594ab985060._V299195749_.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Amazon Ember";
+    src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Amazon Ember Heavy";
+    src: url("https://m.media-amazon.com/images/G/01/acs/fonts/amazonember_he-webfont._V278446113_.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* =========================
+   GENERAL
+========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -14,10 +48,15 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Trebuchet MS", Arial, sans-serif;
     background: #f8f7f4;
     color: #19171f;
 }
+
+
+/* =========================
+   NAVBAR
+========================= */
 
 nav {
     height: 76px;
@@ -30,8 +69,9 @@ nav {
 }
 
 .logo {
+    font-family: "Amazon Ember Heavy", "Amazon Ember", Arial, sans-serif;
     font-size: 28px;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: -1.5px;
 }
 
@@ -47,8 +87,13 @@ nav {
 }
 
 .back:hover {
-    color: #f07818;
+    color: #5B9FE8;
 }
+
+
+/* =========================
+   MAIN
+========================= */
 
 main {
     max-width: 1200px;
@@ -57,22 +102,29 @@ main {
 }
 
 .eyebrow {
-    color: #f07818;
-    font-size: 12px;
-    font-weight: 800;
+    color: #5B9FE8;
+    font-size: 13px;
+    font-weight: 700;
     letter-spacing: 2px;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 
 h1 {
+    font-family:
+        "Amazon Ember Heavy",
+        "Amazon Ember",
+        Arial,
+        sans-serif;
+
     font-size: clamp(45px, 6vw, 76px);
-    line-height: .95;
-    letter-spacing: -4px;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    font-weight: 900;
     margin-bottom: 25px;
 }
 
 h1 span {
-    color: #f07818;
+    color: #5B9FE8;
 }
 
 .intro {
@@ -82,6 +134,11 @@ h1 span {
     max-width: 680px;
     margin-bottom: 45px;
 }
+
+
+/* =========================
+   GRID
+========================= */
 
 .grid {
     display: grid;
@@ -109,12 +166,16 @@ h1 span {
 }
 
 
-/* UPLOAD */
+/* =========================
+   UPLOAD
+========================= */
 
 .upload-box {
     min-height: 270px;
-    border: 2px dashed #e9b477;
-    background: #fffaf4;
+
+    border: 2px dashed #9FC7F3;
+    background: #F3F8FE;
+
     border-radius: 18px;
 
     display: flex;
@@ -128,8 +189,8 @@ h1 span {
 }
 
 .upload-box:hover {
-    background: #fff2e3;
-    border-color: #f07818;
+    background: #EAF4FD;
+    border-color: #5B9FE8;
 }
 
 .upload-icon {
@@ -149,7 +210,7 @@ h1 span {
 }
 
 .choose-btn {
-    background: #f07818;
+    background: #5B9FE8;
     color: white;
     padding: 11px 20px;
     border-radius: 9px;
@@ -157,7 +218,9 @@ h1 span {
     font-weight: 700;
 }
 
+
 /* IMPORTANT: hides the real file input */
+
 #fileInput {
     display: none;
 }
@@ -170,7 +233,9 @@ h1 span {
 }
 
 
-/* SETTINGS */
+/* =========================
+   SETTINGS
+========================= */
 
 .setting {
     margin-bottom: 22px;
@@ -195,7 +260,9 @@ input[type="text"] {
 }
 
 
-/* RADIO BUTTONS */
+/* =========================
+   RADIO BUTTONS
+========================= */
 
 .radio-group {
     display: flex;
@@ -217,14 +284,16 @@ input[type="text"] {
 }
 
 .radio-option input:checked + span {
-    background: #fff0df;
-    border-color: #e9a568;
-    color: #c7610b;
+    background: #EAF4FD;
+    border-color: #8FC0EF;
+    color: #397DBD;
     font-weight: 700;
 }
 
 
-/* PAGES */
+/* =========================
+   PAGES
+========================= */
 
 .page-options {
     display: flex;
@@ -250,9 +319,9 @@ input[type="text"] {
 }
 
 .page-option input:checked + span {
-    background: #fff0df;
-    border-color: #e9a568;
-    color: #c7610b;
+    background: #EAF4FD;
+    border-color: #8FC0EF;
+    color: #397DBD;
     font-weight: 700;
 }
 
@@ -266,7 +335,9 @@ input[type="text"] {
 }
 
 
-/* COPIES */
+/* =========================
+   COPIES
+========================= */
 
 .copies {
     display: flex;
@@ -286,7 +357,7 @@ input[type="text"] {
 }
 
 .copies button:hover {
-    background: #f07818;
+    background: #5B9FE8;
 }
 
 #copies {
@@ -296,7 +367,9 @@ input[type="text"] {
 }
 
 
-/* SUMMARY */
+/* =========================
+   SUMMARY
+========================= */
 
 .summary {
     background: #faf9f7;
@@ -308,11 +381,14 @@ input[type="text"] {
 }
 
 
-/* ESTIMATE */
+/* =========================
+   ESTIMATE
+========================= */
 
 .estimate {
     grid-column: 1 / -1;
-    background: #ffe3c2;
+
+    background: #DCEEFF;
     border: none;
 
     display: grid;
@@ -321,7 +397,7 @@ input[type="text"] {
 }
 
 .estimate-label {
-    color: #8b5a25;
+    color: #397DBD;
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.8px;
@@ -344,7 +420,9 @@ input[type="text"] {
 }
 
 
-/* SUBMIT */
+/* =========================
+   SUBMIT
+========================= */
 
 .submit-area {
     grid-column: 1 / -1;
@@ -363,11 +441,13 @@ input[type="text"] {
 }
 
 .submit-btn:hover {
-    background: #f07818;
+    background: #5B9FE8;
 }
 
 
-/* TOKEN CONFIRMATION */
+/* =========================
+   TOKEN CONFIRMATION
+========================= */
 
 .confirmation {
     display: none;
@@ -383,7 +463,7 @@ input[type="text"] {
 }
 
 .confirmation-label {
-    color: #f07818;
+    color: #5B9FE8;
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 2px;
@@ -391,7 +471,7 @@ input[type="text"] {
 }
 
 .token {
-    color: #f07818;
+    color: #5B9FE8;
     font-size: 60px;
     font-weight: 800;
     letter-spacing: -3px;
@@ -408,6 +488,10 @@ input[type="text"] {
     color: white;
 }
 
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 800px) {
 
@@ -429,13 +513,20 @@ input[type="text"] {
         grid-column: auto;
     }
 }
+
 </style>
 </head>
 
 
 <body>
 
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
 <nav>
+
     <div class="logo">
         INQ<span>.</span>
     </div>
@@ -443,12 +534,19 @@ input[type="text"] {
     <a href="index.html" class="back">
         ← Back to INQ
     </a>
+
 </nav>
 
 
+<!-- =========================
+     MAIN
+========================= -->
+
 <main>
 
-    <p class="eyebrow">PRINTING SHOP</p>
+    <p class="eyebrow">
+        INQ / PRINTING SHOP
+    </p>
 
     <h1>
         Upload. Get your token.<br>
@@ -465,7 +563,9 @@ input[type="text"] {
     <div class="grid">
 
 
-        <!-- UPLOAD -->
+        <!-- =========================
+             UPLOAD
+        ========================= -->
 
         <section class="card">
 
@@ -502,7 +602,9 @@ input[type="text"] {
         </section>
 
 
-        <!-- PRINT SETTINGS -->
+        <!-- =========================
+             PRINT SETTINGS
+        ========================= -->
 
         <section class="card">
 
@@ -539,22 +641,29 @@ input[type="text"] {
                 <div class="radio-group">
 
                     <label class="radio-option">
+
                         <input
                             type="radio"
                             name="colour"
                             value="Black & White"
                             checked
                         >
+
                         <span>Black & White</span>
+
                     </label>
 
+
                     <label class="radio-option">
+
                         <input
                             type="radio"
                             name="colour"
                             value="Colour"
                         >
+
                         <span>Colour</span>
+
                     </label>
 
                 </div>
@@ -569,22 +678,29 @@ input[type="text"] {
                 <div class="radio-group">
 
                     <label class="radio-option">
+
                         <input
                             type="radio"
                             name="sides"
                             value="Single-sided"
                             checked
                         >
+
                         <span>Single-sided</span>
+
                     </label>
 
+
                     <label class="radio-option">
+
                         <input
                             type="radio"
                             name="sides"
                             value="Double-sided"
                         >
+
                         <span>Double-sided</span>
+
                     </label>
 
                 </div>
@@ -594,7 +710,9 @@ input[type="text"] {
         </section>
 
 
-        <!-- PAGES & COPIES -->
+        <!-- =========================
+             PAGES & COPIES
+        ========================= -->
 
         <section class="card">
 
@@ -676,7 +794,9 @@ input[type="text"] {
         </section>
 
 
-        <!-- SUMMARY -->
+        <!-- =========================
+             SUMMARY
+        ========================= -->
 
         <section class="card">
 
@@ -718,7 +838,9 @@ input[type="text"] {
         </section>
 
 
-        <!-- ESTIMATE -->
+        <!-- =========================
+             ESTIMATE
+        ========================= -->
 
         <section class="card estimate">
 
@@ -747,7 +869,9 @@ input[type="text"] {
         </section>
 
 
-        <!-- SUBMIT -->
+        <!-- =========================
+             SUBMIT
+        ========================= -->
 
         <div class="submit-area">
 
@@ -763,7 +887,9 @@ input[type="text"] {
     </div>
 
 
-    <!-- CONFIRMATION -->
+    <!-- =========================
+         CONFIRMATION
+    ========================= -->
 
     <div class="confirmation" id="confirmation">
 
@@ -776,7 +902,7 @@ input[type="text"] {
         </div>
 
         <p>
-            <strong>Your print queue token</strong>
+            <strong>YOUR PRINT QUEUE TOKEN</strong>
             <br><br>
 
             11 print jobs ahead of you.
@@ -797,6 +923,10 @@ input[type="text"] {
 
 </main>
 
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
 <script>
 

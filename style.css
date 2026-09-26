@@ -533,28 +533,19 @@ body {
    SERVICES HEADING
    Light / Regular — NOT BOLD
 ========================================================= */
-
 .section-heading h2 {
-    font-family:
-        "Amazon Ember Display",
-        "Amazon Ember Light",
-        "Amazon Ember",
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: clamp(45px, 6vw, 76px);
     line-height: 0.95;
-    letter-spacing: -2px;
-    font-weight: 600;
+    letter-spacing: -2.5px;
+    font-weight: 700;
     margin-bottom: 25px;
 }
 
-
 .section-heading h2 span {
-    color: #695196;
+    color: #7604e0;
+    font-weight: 700;
 }
-
 
 /* Services subtext */
 

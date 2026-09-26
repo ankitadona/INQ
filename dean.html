@@ -8,6 +8,30 @@
 
     <style>
 
+        @font-face {
+            font-family: "Amazon Ember";
+            src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-fd81bacb6a659a8c8c95828226b74594ab985060._V299195749_.woff2") format("woff2");
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Amazon Ember";
+            src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2") format("woff2");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Amazon Ember Heavy";
+            src: url("https://m.media-amazon.com/images/G/01/acs/fonts/amazonember_he-webfont._V278446113_.woff2") format("woff2");
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -17,7 +41,7 @@
         body {
             background: #f7f5f1;
             color: #17151f;
-            font-family: "Amazon Ember", Arial, Helvetica, sans-serif;
+            font-family: "Trebuchet MS", Arial, sans-serif;
         }
 
         /* =========================
@@ -34,8 +58,10 @@
         }
 
         .logo {
+            font-family: "Amazon Ember Heavy", "Amazon Ember", Arial, sans-serif;
             font-size: 28px;
-            font-weight: 800;
+            font-weight: 900;
+            letter-spacing: -1.5px;
         }
 
         .logo span {
@@ -65,9 +91,15 @@
         }
 
         h1 {
+            font-family:
+                "Amazon Ember Heavy",
+                "Amazon Ember",
+                Arial,
+                sans-serif;
             font-size: clamp(45px, 6vw, 72px);
             line-height: 0.95;
-            letter-spacing: -4px;
+            letter-spacing: -3px;
+            font-weight: 900;
             margin-bottom: 55px;
         }
 
@@ -98,61 +130,6 @@
             margin-bottom: 22px;
         }
 
-        /* =========================
-           CROWD
-        ========================= */
-
-        .crowd-card {
-            background: #ded4ff;
-        }
-
-        .crowd-number {
-            font-size: 64px;
-            font-weight: 800;
-            letter-spacing: -4px;
-        }
-
-        .crowd-label {
-            color: #5e5963;
-            margin-top: 2px;
-        }
-
-        .status {
-            display: inline-block;
-            margin-top: 22px;
-            padding: 7px 13px;
-            border-radius: 20px;
-            background: #ccefd9;
-            color: #176b39;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        /* =========================
-           ESTIMATED TURN
-        ========================= */
-
-        .time-card {
-            background: #ffffff;
-            border: 1px solid #dedbd5;
-        }
-
-        .estimated-time {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: -2px;
-        }
-
-        .time-note {
-            margin-top: 8px;
-            color: #5e5963;
-        }
-
-        .service-time {
-            margin-top: 25px;
-            font-size: 14px;
-            color: #5e5963;
-        }
 
         /* =========================
            SERVICE SELECTION
@@ -260,8 +237,9 @@
         }
 
         .your-token {
+            font-family: "Amazon Ember Heavy", "Amazon Ember", Arial, sans-serif;
             font-size: 58px;
-            font-weight: 800;
+            font-weight: 900;
             letter-spacing: -3px;
             line-height: 1;
         }
@@ -312,57 +290,6 @@
         }
 
         /* =========================
-           QUEUE PREVIEW
-        ========================= */
-
-        .queue-card {
-            grid-column: 1 / -1;
-            background: #efede8;
-            border: 1px solid #dedbd5;
-        }
-
-        .queue-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-        }
-
-        .queue-top h2 {
-            font-size: 24px;
-        }
-
-        .queue-top span {
-            color: #5e5963;
-            font-size: 14px;
-        }
-
-        .queue-list {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .token {
-            background: white;
-            border: 1px solid #dedbd5;
-            padding: 13px 18px;
-            border-radius: 10px;
-            font-weight: 700;
-        }
-
-        .token.completed {
-            color: #777;
-            text-decoration: line-through;
-        }
-
-        .token.current {
-            background: #7137d9;
-            color: white;
-            border-color: #7137d9;
-        }
-
-        /* =========================
            MOBILE
         ========================= */
 
@@ -382,10 +309,6 @@
 
             .dashboard {
                 grid-template-columns: 1fr;
-            }
-
-            .queue-card {
-                grid-column: auto;
             }
 
             .token-details {
@@ -434,56 +357,6 @@
 
 
         <div class="dashboard">
-
-
-            <!-- =========================
-                 CURRENT CROWD
-            ========================= -->
-
-            <div class="card crowd-card">
-
-                <p class="card-title">
-                    CURRENT CROWD
-                </p>
-
-                <div class="crowd-number">
-                    4
-                </div>
-
-                <p class="crowd-label">
-                    students waiting
-                </p>
-
-                <span class="status">
-                    LOW CROWD
-                </span>
-
-            </div>
-
-
-            <!-- =========================
-                 ESTIMATED TURN
-            ========================= -->
-
-            <div class="card time-card">
-
-                <p class="card-title">
-                    ESTIMATED NEXT TURN
-                </p>
-
-                <div class="estimated-time">
-                    10:35 AM
-                </div>
-
-                <p class="time-note">
-                    Based on the current queue
-                </p>
-
-                <p class="service-time">
-                    Average service time: ~3 min / student
-                </p>
-
-            </div>
 
 
             <!-- =========================
@@ -636,52 +509,6 @@
                     </li>
 
                 </ul>
-
-            </div>
-
-
-            <!-- =========================
-                 QUEUE PREVIEW
-            ========================= -->
-
-            <div class="card queue-card">
-
-                <div class="queue-top">
-
-                    <h2>
-                        Queue right now
-                    </h2>
-
-                    <span>
-                        4 students waiting
-                    </span>
-
-                </div>
-
-
-                <div class="queue-list">
-
-                    <div class="token completed">
-                        D-23
-                    </div>
-
-                    <div class="token completed">
-                        D-24
-                    </div>
-
-                    <div class="token">
-                        D-25
-                    </div>
-
-                    <div class="token">
-                        D-26
-                    </div>
-
-                    <div class="token current">
-                        YOU → D-27
-                    </div>
-
-                </div>
 
             </div>
 
