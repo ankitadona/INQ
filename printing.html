@@ -13,6 +13,14 @@
 ========================= */
 
 @font-face {
+    font-family: "Amazon Ember Light";
+    src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_lt-019e0ec3f9b521056e66e31fdcbc8323e5cd1938._V299195751_.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: "Amazon Ember";
     src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-fd81bacb6a659a8c8c95828226b74594ab985060._V299195749_.woff2") format("woff2");
     font-weight: 400;
@@ -82,11 +90,13 @@ nav {
 .back {
     text-decoration: none;
     color: #19171f;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 400;
+    transition: 0.2s ease;
 }
 
-.back:hover {
+.back:hover,
+.back:active {
     color: #5B9FE8;
 }
 
@@ -494,6 +504,26 @@ input[type="text"] {
 ========================= */
 
 @media (max-width: 800px) {
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
+        font-family: "Amazon Ember", Arial, Helvetica, sans-serif;
+    }
+
+    nav {
+        padding: 0 6vw;
+    }
+
+    main {
+        padding: 50px 6vw 70px;
+    }
+
+    h1 {
+        font-size: 48px;
+    }
 
     .grid {
         grid-template-columns: 1fr;

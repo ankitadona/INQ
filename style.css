@@ -320,9 +320,24 @@ body {
 .secondary-button {
     background: transparent;
 
+    text-decoration: none;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: 0.2s ease;
+
     color: #17151f;
 
     border: 1px solid #bdb8b0;
+}
+
+.secondary-button:hover {
+    border-color: #17151f;
+    background: rgba(0, 0, 0, 0.03);
 }
 
 

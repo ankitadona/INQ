@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INQ — How It Works & Token System</title>
+
+    <style>
+
+        /* =========================
+           FONTS
+        ========================= */
+
+        @font-face {
+            font-family: "Amazon Ember Light";
+            src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_lt-019e0ec3f9b521056e66e31fdcbc8323e5cd1938._V299195751_.woff2") format("woff2");
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Amazon Ember";
+            src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-fd81bacb6a659a8c8c95828226b74594ab985060._V299195749_.woff2") format("woff2");
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Amazon Ember";
+            src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2") format("woff2");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Amazon Ember Heavy";
+            src: url("https://m.media-amazon.com/images/G/01/acs/fonts/amazonember_he-webfont._V278446113_.woff2") format("woff2");
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+
+        /* =========================
+           RESET & GLOBAL
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f7f5f1;
+            color: #17151f;
+            font-family: "Amazon Ember", Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            height: 76px;
+            padding: 0 8vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #dedbd5;
+            background: #f7f5f1;
+        }
+
+        .logo {
+            font-family: "Amazon Ember Heavy", "Amazon Ember", Arial, sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            text-decoration: none;
+            color: #17151f;
+        }
+
+        .logo span {
+            color: #7137d9;
+        }
+
+        .back {
+            text-decoration: none;
+            color: #17151f;
+            font-size: 15px;
+            font-weight: 400;
+            transition: 0.2s ease;
+        }
+
+        .back:hover,
+        .back:active {
+            color: #7137d9;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        main {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 70px 8vw 100px;
+        }
+
+        .eyebrow {
+            color: #7137d9;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: "Amazon Ember Heavy", "Amazon Ember", Arial, sans-serif;
+            font-size: clamp(45px, 6vw, 72px);
+            line-height: 0.95;
+            letter-spacing: -3px;
+            font-weight: 900;
+            margin-bottom: 25px;
+        }
+
+        h1 span {
+            color: #7137d9;
+        }
+
+        .lead-text {
+            color: #5e5963;
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 720px;
+            margin-bottom: 55px;
+        }
+
+
+        /* =========================
+           SECTION CARDS
+        ========================= */
+
+        .section-block {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #dedbd5;
+            border-radius: 24px;
+            padding: 32px;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .step-number {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #7137d9;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #625c68;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           TOKEN PILLS & SHOWCASE
+        ========================= */
+
+        .token-showcase {
+            background: #ffffff;
+            border: 1px solid #dedbd5;
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 60px;
+        }
+
+        .token-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .token-item {
+            padding: 24px;
+            border-radius: 18px;
+            border: 1px solid #e7e3dc;
+            background: #faf8f5;
+        }
+
+        .token-item.dean-theme {
+            border-top: 4px solid #7137d9;
+        }
+
+        .token-item.print-theme {
+            border-top: 4px solid #5B9FE8;
+        }
+
+        .token-item.cafe-theme {
+            border-top: 4px solid #e58a4a;
+        }
+
+        .token-badge {
+            display: inline-block;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-bottom: 8px;
+        }
+
+        .dean-theme .token-badge {
+            color: #7137d9;
+        }
+
+        .print-theme .token-badge {
+            color: #5B9FE8;
+        }
+
+        .cafe-theme .token-badge {
+            color: #e58a4a;
+        }
+
+        .token-tag {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #7d7782;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .token-item p {
+            font-size: 14px;
+            color: #5e5963;
+            line-height: 1.55;
+        }
+
+
+        /* =========================
+           HOW TOKENS ARE ESTIMATED
+        ========================= */
+
+        .highlight-box {
+            background: #191522;
+            color: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .highlight-box h2 {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .highlight-box p {
+            color: #d1cdd9;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            max-width: 800px;
+        }
+
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .features-list li {
+            font-size: 15px;
+            color: #e6e2ed;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            color: #b58cff;
+            font-weight: 900;
+        }
+
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta-section {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: #7137d9;
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 700;
+            transition: opacity 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.9;
+        }
+
+
+        /* =========================
+           MOBILE RESPONSIVENESS
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            body {
+                font-family: "Amazon Ember", Arial, Helvetica, sans-serif;
+            }
+
+            nav {
+                padding: 0 6vw;
+            }
+
+            main {
+                padding: 50px 6vw 70px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            .grid-3,
+            .grid-2,
+            .token-grid,
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            .token-showcase,
+            .highlight-box,
+            .card {
+                padding: 24px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <a href="index.html" class="logo">
+            INQ<span>.</span>
+        </a>
+
+        <a href="index.html" class="back">
+            ← Back to INQ
+        </a>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+        <p class="eyebrow">
+            INQ / SYSTEM ARCHITECTURE
+        </p>
+
+        <h1>
+            How INQ works.<br>
+            <span>The token system.</span>
+        </h1>
+
+        <p class="lead-text">
+            INQ eliminates physical queues on campus by replacing lines with live virtual tokens.
+            Instead of staring at people's backs, you join remotely, receive an active token,
+            track your live progress, and walk up only when it's your turn.
+        </p>
+
+
+        <!-- ================= 3-STEP FLOW ================= -->
+
+        <section class="section-block">
+
+            <h2 class="section-title">
+                The 3-Step Lifecycle
+            </h2>
+
+            <div class="grid-3">
+
+                <div class="card">
+                    <span class="step-number">STEP 01</span>
+                    <h3>Select & Join</h3>
+                    <p>
+                        Choose your campus service (Dean Office, Printing Shop, or Café) and specify your exact need online from any phone or laptop.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <span class="step-number">STEP 02</span>
+                    <h3>Get Virtual Token</h3>
+                    <p>
+                        Your token is instantly generated with a unique sequence number and a dynamic wait estimate based on active service speed.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <span class="step-number">STEP 03</span>
+                    <h3>Arrive on Turn</h3>
+                    <p>
+                        Go study, grab lunch, or relax. Check your live counter, and reach the service right when your token is ready.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TOKEN TYPES BY SERVICE ================= -->
+
+        <section class="token-showcase">
+
+            <h2 class="section-title">
+                How Tokens Work Across Services
+            </h2>
+
+            <p style="color: #625c68; font-size: 15px;">
+                Each campus location has its own customized queue workflow tailored to its operational speed:
+            </p>
+
+            <div class="token-grid">
+
+                <div class="token-item dean-theme">
+                    <span class="token-tag">DEAN OFFICE QUEUE</span>
+                    <span class="token-badge">D-27</span>
+                    <p>
+                        <strong>Sequential verification:</strong> Designed for signatures, document verification, and collections. Tokens progress in strict order with an average of ~3 minutes per student.
+                    </p>
+                </div>
+
+                <div class="token-item print-theme">
+                    <span class="token-tag">PRINTING SHOP QUEUE</span>
+                    <span class="token-badge">P-34</span>
+                    <p>
+                        <strong>Job-complexity calculation:</strong> Upload your file in advance. The token estimates readiness by calculating total pages, color vs B&W, and sides.
+                    </p>
+                </div>
+
+                <div class="token-item cafe-theme">
+                    <span class="token-tag">CAMPUS CAFÉ QUEUE</span>
+                    <span class="token-badge">C-18</span>
+                    <p>
+                        <strong>Kitchen prep window:</strong> Order snacks and beverages ahead. Kitchen staff process orders concurrently and tokens notify you when food is boxed and hot.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SMART TIME ESTIMATION ================= -->
+
+        <section class="highlight-box">
+
+            <h2>Real-Time Dynamic Wait Times</h2>
+
+            <p>
+                INQ doesn't show fixed guesses. The system calculates live waiting times using real factors:
+            </p>
+
+            <ul class="features-list">
+                <li>Active students currently ahead in your specific service line</li>
+                <li>Dynamic crowd levels (Low, Moderate, and High crowd status)</li>
+                <li>Historical average completion time for your selected request type</li>
+                <li>Concurrent processing capacity at peak campus rush hours</li>
+            </ul>
+
+        </section>
+
+
+        <!-- ================= CTA ================= -->
+
+        <section class="cta-section">
+
+            <a href="index.html" class="cta-btn">
+                ← Explore Live Campus Queues
+            </a>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
