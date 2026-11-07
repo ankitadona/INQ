@@ -252,7 +252,7 @@ if (exploreButton) {
    FASTAPI LIVE INTEGRATION
 ========================= */
 
-const API_BASE_URL = (function() {
+const API_BASE_URL = window.INQ_API || (function() {
     if (window.location.protocol === "file:") {
         return "http://127.0.0.1:8000/api";
     }

@@ -986,6 +986,7 @@ h1 span {
      JAVASCRIPT
 ========================= -->
 
+<script src="config.js?v=1"></script>
 <script>
 
 
@@ -1170,7 +1171,7 @@ document
    PLACE ORDER
 ========================= */
 
-const API = (function() {
+const API = window.INQ_API || (function() {
     if (window.location.protocol === "file:") return "http://127.0.0.1:8000/api";
     const host = window.location.hostname || "127.0.0.1";
     return `http://${host}:8000/api`;
