@@ -11,18 +11,18 @@
 const queueData = {
 
     dean: {
-        count: 4,
-        time: "10:35 AM"
+        count: 0,
+        time: "—"
     },
 
     printing: {
-        count: 11,
-        time: "11:20 AM"
+        count: 0,
+        time: "—"
     },
 
     cafe: {
-        count: 7,
-        time: "9:00–9:05 AM"
+        count: 0,
+        time: "—"
     }
 
 };
