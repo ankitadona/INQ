@@ -5,7 +5,7 @@
 const INQ_CONFIG = {
     // When your Render backend is live, paste your Render URL here:
     // Example: "https://inq-backend.onrender.com"
-    RENDER_BACKEND_URL: "",
+    RENDER_BACKEND_URL: "https://inq-1.onrender.com",
 
     getApiUrl() {
         // If a Render URL is set, use it everywhere
