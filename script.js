@@ -252,7 +252,14 @@ if (exploreButton) {
    FASTAPI LIVE INTEGRATION
 ========================= */
 
-const API_BASE_URL = "http://127.0.0.1:8000/api";
+const API_BASE_URL = (function() {
+    if (window.location.protocol === "file:") {
+        return "http://127.0.0.1:8000/api";
+    }
+    const host = window.location.hostname || "127.0.0.1";
+    return `http://${host}:8000/api`;
+})();
+
 let backendConnected = false;
 
 async function fetchLiveQueueStatus() {

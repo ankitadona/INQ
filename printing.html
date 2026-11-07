@@ -978,10 +978,16 @@ fileInput.addEventListener("change", function () {
 });
 
 
+const API = (function() {
+    if (window.location.protocol === "file:") return "http://127.0.0.1:8000/api";
+    const host = window.location.hostname || "127.0.0.1";
+    return `http://${host}:8000/api`;
+})();
+
 // ── Load live printing status on page load ──
 (async function loadPrintingStatus() {
     try {
-        const res = await fetch("http://127.0.0.1:8000/api/printing/status");
+        const res = await fetch(`${API}/printing/status`);
         if (!res.ok) return;
         const data = await res.json();
         const jobsEl = document.querySelector(".jobs strong");
@@ -1100,8 +1106,6 @@ document.getElementById("pageRange")
 
 
 // SUBMIT PRINT JOB
-
-const API = "http://127.0.0.1:8000/api";
 
 async function submitJob() {
 

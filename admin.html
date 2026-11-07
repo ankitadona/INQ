@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -572,7 +572,11 @@ nav {
 
 <script>
 
-const API = "http://127.0.0.1:8000/api";
+const API = (function() {
+    if (window.location.protocol === "file:") return "http://127.0.0.1:8000/api";
+    const host = window.location.hostname || "127.0.0.1";
+    return `http://${host}:8000/api`;
+})();
 
 let authToken = null;
 let currentRole = null;
