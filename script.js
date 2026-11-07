@@ -3,10 +3,9 @@
 ========================= */
 
 /*
-    These numbers are temporary.
-
-    Later FastAPI will send this
-    information from PostgreSQL.
+    These numbers serve as defaults/fallbacks.
+    When the FastAPI backend is running, live data
+    from PostgreSQL/SQLite updates them in real time.
 */
 
 const queueData = {
@@ -134,16 +133,15 @@ function updateService(service) {
         `${service}-time`
     );
 
+    if (badge && count && time) {
+        badge.textContent = status.text;
 
-    badge.textContent = status.text;
+        badge.className = "crowd-badge " + status.className;
 
-    badge.classList.add(
-        status.className
-    );
+        count.textContent = data.count;
 
-    count.textContent = data.count;
-
-    time.textContent = data.time;
+        time.textContent = data.time;
+    }
 
 
     /* ---------- Navbar ---------- */
@@ -152,7 +150,9 @@ function updateService(service) {
         `${service}-nav-status`
     );
 
-    navStatus.textContent = status.text;
+    if (navStatus) {
+        navStatus.textContent = status.text;
+    }
 
 
     /* ---------- Navbar dot ---------- */
@@ -161,9 +161,9 @@ function updateService(service) {
         `.${service}-dot`
     );
 
-    navDot.classList.add(
-        status.className
-    );
+    if (navDot) {
+        navDot.className = `nav-icon ${service}-dot ` + status.className;
+    }
 
 }
 
@@ -232,47 +232,75 @@ document.head.appendChild(style);
 const exploreButton =
     document.querySelector(".primary-button");
 
-exploreButton.addEventListener(
-    "click",
-    () => {
+if (exploreButton) {
+    exploreButton.addEventListener(
+        "click",
+        () => {
 
-        document
-            .querySelector(".services-section")
-            .scrollIntoView({
-                behavior: "smooth"
-            });
+            document
+                .querySelector(".services-section")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
 
-    }
-);
+        }
+    );
+}
 
 
 /* =========================
-   DEMO QUEUE UPDATE
+   FASTAPI LIVE INTEGRATION
 ========================= */
 
-/*
-    For now, we simulate a changing queue.
+const API_BASE_URL = "http://127.0.0.1:8000/api";
+let backendConnected = false;
 
-    Later this will be replaced by
-    API calls to FastAPI.
-*/
+async function fetchLiveQueueStatus() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/queues/status`);
+        if (!response.ok) return;
 
+        const liveData = await response.json();
+        backendConnected = true;
+
+        if (liveData.dean) {
+            queueData.dean.count = liveData.dean.count;
+            queueData.dean.time = liveData.dean.estimated_time;
+            updateService("dean");
+        }
+
+        if (liveData.printing) {
+            queueData.printing.count = liveData.printing.count;
+            queueData.printing.time = liveData.printing.estimated_time;
+            updateService("printing");
+        }
+
+        if (liveData.cafe) {
+            queueData.cafe.count = liveData.cafe.count;
+            queueData.cafe.time = liveData.cafe.estimated_time;
+            updateService("cafe");
+        }
+
+    } catch (err) {
+        // Backend offline: retain current local queue state
+        backendConnected = false;
+    }
+}
+
+// Check for live updates every 5 seconds
+fetchLiveQueueStatus();
+setInterval(fetchLiveQueueStatus, 5000);
+
+
+/* Fallback demo oscillation only when backend is offline */
 setInterval(() => {
-
-    /*
-        Small demo change.
-        Don't use this in the final
-        connected version.
-    */
-
-    queueData.cafe.count =
-        Math.max(
-            0,
-            queueData.cafe.count +
-            (Math.random() > 0.5 ? 1 : -1)
-        );
-
-
-    updateService("cafe");
-
+    if (!backendConnected) {
+        queueData.cafe.count =
+            Math.max(
+                0,
+                queueData.cafe.count +
+                (Math.random() > 0.5 ? 1 : -1)
+            );
+        updateService("cafe");
+    }
 }, 10000);

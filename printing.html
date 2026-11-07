@@ -978,6 +978,22 @@ fileInput.addEventListener("change", function () {
 });
 
 
+// ── Load live printing status on page load ──
+(async function loadPrintingStatus() {
+    try {
+        const res = await fetch("http://127.0.0.1:8000/api/printing/status");
+        if (!res.ok) return;
+        const data = await res.json();
+        const jobsEl = document.querySelector(".jobs strong");
+        const estEl  = document.getElementById("estimateTime");
+        if (jobsEl) jobsEl.textContent = data.waiting_jobs_count ?? jobsEl.textContent;
+        if (estEl)  estEl.textContent  = data.estimated_time_to_reach || estEl.textContent;
+    } catch (e) {
+        // Backend offline — static display is fine
+    }
+})();
+
+
 // COPIES
 
 let copies = 1;
@@ -1085,25 +1101,70 @@ document.getElementById("pageRange")
 
 // SUBMIT PRINT JOB
 
-function submitJob() {
+const API = "http://127.0.0.1:8000/api";
+
+async function submitJob() {
 
     if (fileInput.files.length === 0) {
-
         alert("Please upload your document first.");
-
         return;
     }
 
-    const confirmation =
-        document.getElementById("confirmation");
+    const paperSize  = document.getElementById("paperSize").value;
+    const colour     = document.querySelector('input[name="colour"]:checked')?.value || "Black & White";
+    const sides      = document.querySelector('input[name="sides"]:checked')?.value || "Single-sided";
+    const pagesVal   = document.querySelector('input[name="pages"]:checked')?.value || "All pages";
+    const pageRange  = document.getElementById("pageRange").value.trim();
+    const pages      = pagesVal === "Custom" ? (pageRange || "Custom") : pagesVal;
+    const copiesVal  = copies;
+    const fileName_  = fileInput.files[0].name;
 
-    confirmation.classList.add("show");
+    const btn = document.querySelector(".submit-btn");
+    btn.disabled = true;
+    btn.textContent = "Submitting…";
 
-    confirmation.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
+    try {
+        const res = await fetch(`${API}/printing/token`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                file_name:  fileName_,
+                paper_size: paperSize,
+                colour:     colour,
+                sides:      sides,
+                pages:      pages,
+                copies:     copiesVal,
+            }),
+        });
 
+        const confirmation = document.getElementById("confirmation");
+
+        if (res.ok) {
+            const data = await res.json();
+
+            // Update confirmation with real data
+            confirmation.querySelector(".token").textContent = data.token_number;
+            confirmation.querySelector("p").innerHTML =
+                `<strong>YOUR PRINT QUEUE TOKEN</strong><br><br>` +
+                `${data.people_ahead} print job${data.people_ahead !== 1 ? "s" : ""} ahead of you.<br>` +
+                `Estimated completion: <strong>${data.estimated_time}</strong>`;
+
+            // Update live estimate section
+            document.getElementById("estimateTime").textContent = data.estimated_time;
+        }
+
+        confirmation.classList.add("show");
+        confirmation.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    } catch (e) {
+        // Offline fallback
+        const confirmation = document.getElementById("confirmation");
+        confirmation.classList.add("show");
+        confirmation.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    btn.disabled = false;
+    btn.textContent = "SUBMIT PRINT JOB →";
 }
 
 </script>

@@ -196,6 +196,48 @@
         }
 
         /* =========================
+           SERVICE HOURS BADGE
+        ========================= */
+
+        .hours-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0eaff;
+            border: 1px solid #c9adff;
+            color: #5520ad;
+            border-radius: 20px;
+            padding: 7px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 50px;
+        }
+
+        .hours-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #7137d9;
+            display: inline-block;
+        }
+
+        .hours-dot.closed {
+            background: #aaa;
+        }
+
+        .closed-notice {
+            display: none;
+            background: #fff3f3;
+            border: 1px solid #ffb3b3;
+            color: #c0392b;
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* =========================
            BEFORE YOU JOIN
         ========================= */
 
@@ -377,6 +419,17 @@
             <span>Of the wait</span>
         </h1>
 
+        <!-- Service Hours Badge (populated by JS) -->
+        <div class="hours-badge" id="hoursBadge">
+            <span class="hours-dot" id="hoursDot"></span>
+            <span id="hoursText">9:00 AM – 1:00 PM &amp; 3:00 PM – 5:00 PM</span>
+        </div>
+
+        <!-- Closed notice -->
+        <div class="closed-notice" id="closedNotice">
+            Dean Office is currently closed. Tokens can still be generated.
+        </div>
+
 
         <div class="dashboard">
 
@@ -456,7 +509,7 @@
                     QUEUE JOINED
                 </p>
 
-                <div class="your-token">
+                <div class="your-token" id="tokenNumber">
                     D-27
                 </div>
 
@@ -473,7 +526,7 @@
                             PEOPLE AHEAD
                         </span>
 
-                        <strong>
+                        <strong id="peopleAhead">
                             3 students
                         </strong>
 
@@ -486,7 +539,7 @@
                             ESTIMATED TURN
                         </span>
 
-                        <strong>
+                        <strong id="estimatedTurn">
                             10:35 AM
                         </strong>
 
@@ -546,18 +599,85 @@
 
     <script>
 
-        function joinQueue() {
+        const API = "http://127.0.0.1:8000/api";
 
-            const confirmation =
-                document.getElementById("tokenConfirmation");
+        // ── Load Dean Office hours & open/close status on page load ──
+        async function loadDeanStatus() {
+            try {
+                const res = await fetch(`${API}/dean/status`);
+                if (!res.ok) return;
+                const data = await res.json();
 
-            confirmation.classList.add("show");
+                // Update hours badge
+                const dot = document.getElementById("hoursDot");
+                const hoursText = document.getElementById("hoursText");
+                const closedNotice = document.getElementById("closedNotice");
 
-            confirmation.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
+                hoursText.textContent = data.service_hours || "9:00 AM – 1:00 PM & 3:00 PM – 5:00 PM";
 
+                if (data.is_open) {
+                    dot.classList.remove("closed");
+                } else {
+                    dot.classList.add("closed");
+                    closedNotice.style.display = "block";
+                }
+            } catch (e) {
+                // Backend offline — static display is fine
+            }
+        }
+
+        loadDeanStatus();
+
+
+        // ── Join Queue ──
+        async function joinQueue() {
+
+            const selected = document.querySelector('input[name="service"]:checked');
+            const serviceOption = selected
+                ? selected.parentElement.textContent.trim()
+                : "Document Verification";
+
+            const btn = document.querySelector(".join-button");
+            btn.disabled = true;
+            btn.textContent = "Joining…";
+
+            try {
+                const res = await fetch(`${API}/dean/token`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ service_option: serviceOption }),
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    alert("Error: " + (err.detail || "Could not join queue."));
+                    btn.disabled = false;
+                    btn.textContent = "JOIN QUEUE";
+                    return;
+                }
+
+                const data = await res.json();
+
+                // Populate confirmation card
+                document.getElementById("tokenNumber").textContent = data.token_number;
+                document.getElementById("peopleAhead").textContent =
+                    data.people_ahead + " student" + (data.people_ahead !== 1 ? "s" : "");
+                document.getElementById("estimatedTurn").textContent =
+                    data.estimated_time || "Soon";
+
+                const confirmation = document.getElementById("tokenConfirmation");
+                confirmation.classList.add("show");
+                confirmation.scrollIntoView({ behavior: "smooth", block: "center" });
+
+            } catch (e) {
+                // Offline fallback — just show static card
+                const confirmation = document.getElementById("tokenConfirmation");
+                confirmation.classList.add("show");
+                confirmation.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+
+            btn.disabled = false;
+            btn.textContent = "JOIN QUEUE";
         }
 
     </script>

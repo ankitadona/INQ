@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1170,60 +1170,68 @@ document
    PLACE ORDER
 ========================= */
 
-function placeOrder() {
+const API = "http://127.0.0.1:8000/api";
+
+async function placeOrder() {
 
     let hasOrder = false;
 
-
     for (let i = 0; i < quantities.length; i++) {
-
-        if (quantities[i] > 0) {
-
-            hasOrder = true;
-            break;
-
-        }
-
+        if (quantities[i] > 0) { hasOrder = true; break; }
     }
 
-
-    const otherItem =
-        document.getElementById("otherItem")
-        .value
-        .trim();
-
-
-    if (otherItem !== "") {
-
-        hasOrder = true;
-
-    }
-
+    const otherItem = document.getElementById("otherItem").value.trim();
+    if (otherItem !== "") { hasOrder = true; }
 
     if (!hasOrder) {
-
         alert("Please add something to your order first.");
-
         return;
-
     }
 
+    // Build items array for API
+    const items = [];
+    for (let i = 0; i < menu.length; i++) {
+        if (quantities[i] > 0) {
+            items.push({ name: menu[i].name, quantity: quantities[i], price: menu[i].price });
+        }
+    }
 
-    const confirmation =
-        document.getElementById("confirmation");
+    const btn = document.querySelector(".place-order");
+    btn.disabled = true;
+    btn.textContent = "Placing order...";
 
+    const confirmation = document.getElementById("confirmation");
+
+    try {
+        const res = await fetch(`${API}/cafe/order`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items, other_item: otherItem || null }),
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+
+            // Update confirmation with real data
+            confirmation.querySelector(".confirmation-token").textContent = data.token_number;
+            const detailEls = confirmation.querySelectorAll(".confirmation-detail strong");
+            if (detailEls[0]) detailEls[0].textContent =
+                data.people_ahead + " order" + (data.people_ahead !== 1 ? "s" : "");
+            if (detailEls[1]) detailEls[1].textContent = data.estimated_time || "Soon";
+
+            // Also update pickup box
+            document.querySelector(".pickup-time").textContent = data.estimated_time || "Soon";
+        }
+
+    } catch (e) {
+        // Offline fallback - show static confirmation
+    }
 
     confirmation.classList.add("show");
+    confirmation.scrollIntoView({ behavior: "smooth", block: "center" });
 
-
-    confirmation.scrollIntoView({
-
-        behavior: "smooth",
-
-        block: "center"
-
-    });
-
+    btn.disabled = false;
+    btn.textContent = "PLACE ORDER →";
 }
 
 </script>

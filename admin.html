@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INQ — Staff Dashboard</title>
+
+<style>
+
+/* =========================
+   FONTS
+========================= */
+
+@font-face {
+    font-family: "Amazon Ember Heavy";
+    src: url("https://m.media-amazon.com/images/G/01/acs/fonts/amazonember_he-webfont._V278446113_.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Amazon Ember";
+    src: url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-fd81bacb6a659a8c8c95828226b74594ab985060._V299195749_.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* =========================
+   RESET & BASE
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f7f5f1;
+    color: #17151f;
+    font-family: "Amazon Ember", "Trebuchet MS", Arial, sans-serif;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+    height: 68px;
+    padding: 0 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #17151f;
+    color: white;
+}
+
+.logo {
+    font-family: "Amazon Ember Heavy", Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+}
+
+.logo span { color: #7137d9; }
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+#navUser {
+    font-size: 13px;
+    color: #c3bfd0;
+}
+
+.logout-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+
+/* =========================
+   LOGIN SCREEN
+========================= */
+
+#loginScreen {
+    min-height: calc(100vh - 68px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.login-card {
+    background: white;
+    border: 1px solid #dedbd5;
+    border-radius: 24px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-card h1 {
+    font-family: "Amazon Ember Heavy", Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 6px;
+}
+
+.login-card h1 span { color: #7137d9; }
+
+.login-subtitle {
+    color: #5e5963;
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+
+.field {
+    margin-bottom: 16px;
+}
+
+.field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+    color: #5e5963;
+}
+
+.field input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #dedbd5;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.15s ease;
+}
+
+.field input:focus {
+    border-color: #7137d9;
+}
+
+.login-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #7137d9;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.login-btn:hover { opacity: 0.9; }
+
+.login-error {
+    display: none;
+    margin-top: 14px;
+    background: #fff0f0;
+    border: 1px solid #ffb3b3;
+    color: #c0392b;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.creds-hint {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+    line-height: 1.8;
+}
+
+
+/* =========================
+   DASHBOARD SCREEN
+========================= */
+
+#dashboardScreen {
+    display: none;
+    padding: 40px 6vw 80px;
+}
+
+.dash-header {
+    margin-bottom: 32px;
+}
+
+.dash-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #7137d9;
+    margin-bottom: 8px;
+}
+
+.dash-title {
+    font-family: "Amazon Ember Heavy", Arial, sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+.dash-subtitle {
+    color: #5e5963;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.refresh-note {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 4px;
+}
+
+
+/* =========================
+   SERVICE PANELS GRID
+========================= */
+
+.panels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.panel {
+    background: white;
+    border: 1px solid #dedbd5;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.panel-header {
+    padding: 18px 22px 16px;
+    border-bottom: 1px solid #f0ede8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.panel-name {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.crowd-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.status-low    { background: #e9f8ef; color: #176b39; }
+.status-medium { background: #fff4e0; color: #8a5a00; }
+.status-high   { background: #fff0f0; color: #c0392b; }
+
+
+/* =========================
+   SERVING SECTION
+========================= */
+
+.serving-section {
+    padding: 16px 22px;
+    border-bottom: 1px solid #f0ede8;
+    background: #f9f8f5;
+}
+
+.serving-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.serving-token {
+    font-family: "Amazon Ember Heavy", Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    color: #17151f;
+}
+
+.serving-token.empty {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    color: #aaa;
+    letter-spacing: 0;
+}
+
+.serving-option {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.actions {
+    padding: 14px 22px;
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 11px 8px;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.btn-start {
+    background: #17151f;
+    color: white;
+}
+
+.btn-start:hover { background: #2d2b38; }
+
+.btn-complete {
+    background: #e9f8ef;
+    color: #176b39;
+}
+
+.btn-complete:hover { background: #c8edd8; }
+
+.btn-reset {
+    background: #fff0f0;
+    color: #c0392b;
+}
+
+.btn-reset:hover { background: #ffd5d5; }
+
+
+/* =========================
+   QUEUE LIST
+========================= */
+
+.queue-section {
+    padding: 0 22px 18px;
+}
+
+.queue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #888;
+    border-bottom: 1px solid #f0ede8;
+    margin-bottom: 2px;
+}
+
+.queue-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid #f7f5f1;
+    font-size: 13px;
+}
+
+.queue-item:last-child { border-bottom: none; }
+
+.q-token {
+    font-weight: 700;
+    min-width: 60px;
+}
+
+.q-service {
+    color: #5e5963;
+    flex: 1;
+    padding: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.q-time {
+    color: #888;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.empty-queue {
+    padding: 14px 0;
+    font-size: 13px;
+    color: #bbb;
+}
+
+.stats-row {
+    padding: 10px 22px 14px;
+    display: flex;
+    gap: 20px;
+    border-top: 1px solid #f0ede8;
+    font-size: 12px;
+    color: #888;
+}
+
+.stats-row strong {
+    color: #17151f;
+    font-size: 14px;
+    display: block;
+}
+
+
+/* =========================
+   SERVICE HOURS STRIP (Dean)
+========================= */
+
+.hours-strip {
+    background: #f0eaff;
+    border-top: 1px solid #e0d4fa;
+    padding: 8px 22px;
+    font-size: 12px;
+    color: #5520ad;
+    font-weight: 700;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+#toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #17151f;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.3s ease;
+    z-index: 999;
+    opacity: 0;
+}
+
+#toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+    .panels {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+    <div class="logo">INQ<span>.</span></div>
+    <div class="nav-right">
+        <span id="navUser"></span>
+        <button class="logout-btn" onclick="logout()">Log out</button>
+    </div>
+</nav>
+
+
+<!-- =========================
+     LOGIN SCREEN
+========================= -->
+
+<div id="loginScreen">
+
+    <div class="login-card">
+
+        <h1>Staff <span>Login</span></h1>
+        <p class="login-subtitle">INQ Admin Dashboard — VSSUT</p>
+
+        <div class="field">
+            <label>USERNAME</label>
+            <input type="text" id="loginUser" placeholder="e.g. dean" autocomplete="username">
+        </div>
+
+        <div class="field">
+            <label>PASSWORD</label>
+            <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password"
+                   onkeydown="if(event.key==='Enter') doLogin()">
+        </div>
+
+        <button class="login-btn" onclick="doLogin()">SIGN IN →</button>
+
+        <div class="login-error" id="loginError">Invalid username or password.</div>
+
+        <p class="creds-hint">
+            dean / dean123 &nbsp;·&nbsp; printing / print123<br>
+            cafe / cafe123 &nbsp;·&nbsp; admin / admin123
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     DASHBOARD SCREEN
+========================= -->
+
+<div id="dashboardScreen">
+
+    <div class="dash-header">
+        <p class="dash-eyebrow">INQ / STAFF DASHBOARD</p>
+        <h2 class="dash-title">Queue Control</h2>
+        <p class="dash-subtitle" id="deanHours"></p>
+        <p class="refresh-note">Auto-refreshes every 5 seconds</p>
+    </div>
+
+    <div class="panels" id="panels">
+        <!-- Populated by JS -->
+    </div>
+
+</div>
+
+
+<!-- Toast notification -->
+<div id="toast"></div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+const API = "http://127.0.0.1:8000/api";
+
+let authToken = null;
+let currentRole = null;
+let refreshInterval = null;
+
+const SERVICE_COLORS = {
+    dean:     { accent: "#7137d9", label: "DEAN OFFICE" },
+    printing: { accent: "#5B9FE8", label: "PRINTING SHOP" },
+    cafe:     { accent: "#e58a4a", label: "CAMPUS CAFÉ" },
+};
+
+
+// ── LOGIN ──
+
+async function doLogin() {
+
+    const username = document.getElementById("loginUser").value.trim();
+    const password = document.getElementById("loginPass").value;
+    const errEl    = document.getElementById("loginError");
+
+    errEl.style.display = "none";
+
+    if (!username || !password) {
+        errEl.textContent = "Please enter both username and password.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API}/admin/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+        });
+
+        if (!res.ok) {
+            errEl.textContent = "Invalid username or password.";
+            errEl.style.display = "block";
+            return;
+        }
+
+        const data = await res.json();
+        authToken   = data.token;
+        currentRole = data.role;
+
+        document.getElementById("navUser").textContent =
+            data.username + " (" + data.role.replace("_", " ") + ")";
+
+        document.getElementById("loginScreen").style.display    = "none";
+        document.getElementById("dashboardScreen").style.display = "block";
+
+        loadDashboard();
+        refreshInterval = setInterval(loadDashboard, 5000);
+
+    } catch (e) {
+        errEl.textContent = "Cannot reach backend. Is the server running?";
+        errEl.style.display = "block";
+    }
+}
+
+
+// ── LOGOUT ──
+
+function logout() {
+    authToken = null;
+    clearInterval(refreshInterval);
+    document.getElementById("loginScreen").style.display    = "flex";
+    document.getElementById("dashboardScreen").style.display = "none";
+    document.getElementById("loginUser").value = "";
+    document.getElementById("loginPass").value = "";
+}
+
+
+// ── LOAD DASHBOARD DATA ──
+
+async function loadDashboard() {
+
+    try {
+        // Fetch queue overview
+        const [overviewRes, deanRes] = await Promise.all([
+            fetch(`${API}/admin/queues`),
+            fetch(`${API}/dean/status`),
+        ]);
+
+        if (!overviewRes.ok) return;
+
+        const overview = await overviewRes.json();
+        const deanStatus = deanRes.ok ? await deanRes.json() : null;
+
+        if (deanStatus) {
+            const hoursEl = document.getElementById("deanHours");
+            const isOpen  = deanStatus.is_open;
+            hoursEl.textContent =
+                "Dean Office hours: " + deanStatus.service_hours +
+                (isOpen ? "  ·  Open now" : "  ·  Currently closed");
+            hoursEl.style.color = isOpen ? "#176b39" : "#c0392b";
+        }
+
+        renderPanels(overview);
+
+    } catch (e) {
+        // Backend temporarily unreachable — keep last render
+    }
+}
+
+
+// ── RENDER PANELS ──
+
+function renderPanels(overview) {
+
+    const container = document.getElementById("panels");
+    const services  = ["dean", "printing", "cafe"];
+
+    container.innerHTML = services.map(sid => {
+
+        const data  = overview[sid] || {};
+        const color = SERVICE_COLORS[sid];
+        const serving   = data.currently_serving;
+        const waiting   = data.waiting_tokens || [];
+        const completed = data.completed_today || 0;
+
+        // Crowd badge
+        const count = data.waiting_count || 0;
+        let badgeText = "Low Crowd", badgeClass = "status-low";
+        if (sid === "dean") {
+            if (count > 15)      { badgeText = "Highly Crowded"; badgeClass = "status-high"; }
+            else if (count > 5)  { badgeText = "Moderate";       badgeClass = "status-medium"; }
+        } else if (sid === "printing") {
+            if (count > 15)      { badgeText = "Highly Crowded"; badgeClass = "status-high"; }
+            else if (count > 5)  { badgeText = "Busy";           badgeClass = "status-medium"; }
+            else                 { badgeText = "Low"; }
+        } else {
+            if (count > 8)       { badgeText = "Busy";           badgeClass = "status-high"; }
+            else if (count > 3)  { badgeText = "Moderate";       badgeClass = "status-medium"; }
+        }
+
+        // Queue items (max 6 shown)
+        const queueRows = waiting.slice(0, 6).map((t, i) =>
+            `<div class="queue-item">
+                <span class="q-token">${t.token_number}</span>
+                <span class="q-service">${t.service_option || "—"}</span>
+                <span class="q-time">${t.estimated_time || "—"}</span>
+            </div>`
+        ).join("") || `<div class="empty-queue">No one waiting</div>`;
+
+        const hoursStrip = sid === "dean"
+            ? `<div class="hours-strip">🕘 9:00 AM – 1:00 PM &amp; 3:00 PM – 5:00 PM</div>`
+            : "";
+
+        return `
+        <div class="panel" id="panel-${sid}">
+
+            <div class="panel-header">
+                <span class="panel-name" style="color:${color.accent}">${color.label}</span>
+                <span class="crowd-badge ${badgeClass}">${badgeText}</span>
+            </div>
+
+            ${hoursStrip}
+
+            <div class="serving-section">
+                <div class="serving-label">NOW SERVING</div>
+                ${serving
+                    ? `<div class="serving-token">${serving.token_number}</div>
+                       <div class="serving-option">${serving.service_option || ""}</div>`
+                    : `<div class="serving-token empty">Nothing serving</div>`}
+            </div>
+
+            <div class="actions">
+                <button class="action-btn btn-start"
+                        onclick="startServing('${sid}')">
+                    ▶ Start Serving
+                </button>
+                <button class="action-btn btn-complete"
+                        onclick="completeToken('${sid}')">
+                    ✓ Complete
+                </button>
+                <button class="action-btn btn-reset"
+                        onclick="resetQueue('${sid}')">
+                    ↺ Reset
+                </button>
+            </div>
+
+            <div class="queue-section">
+                <div class="queue-header">
+                    <span>TOKEN</span>
+                    <span>WAITING (${count})</span>
+                </div>
+                ${queueRows}
+            </div>
+
+            <div class="stats-row">
+                <div>
+                    <strong>${count}</strong>
+                    Waiting
+                </div>
+                <div>
+                    <strong>${completed}</strong>
+                    Completed today
+                </div>
+            </div>
+
+        </div>`;
+
+    }).join("");
+}
+
+
+// ── STAFF ACTIONS ──
+
+async function startServing(serviceId) {
+    try {
+        const res = await fetch(`${API}/admin/${serviceId}/start-serving`, { method: "POST" });
+        const data = await res.json();
+        showToast(data.message || "Started serving");
+        loadDashboard();
+    } catch (e) {
+        showToast("Error: could not start serving");
+    }
+}
+
+async function completeToken(serviceId) {
+    try {
+        const res = await fetch(`${API}/admin/${serviceId}/complete`, { method: "POST" });
+        const data = await res.json();
+        showToast(data.message || "Token completed");
+        loadDashboard();
+    } catch (e) {
+        showToast("Error: could not complete token");
+    }
+}
+
+async function resetQueue(serviceId) {
+    if (!confirm(`Reset ALL tokens for ${serviceId}? This cannot be undone.`)) return;
+    try {
+        const res = await fetch(`${API}/admin/${serviceId}/reset`, { method: "POST" });
+        const data = await res.json();
+        showToast(data.message || "Queue reset");
+        loadDashboard();
+    } catch (e) {
+        showToast("Error: could not reset queue");
+    }
+}
+
+
+// ── TOAST ──
+
+function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3000);
+}
+
+</script>
+
+</body>
+</html>
