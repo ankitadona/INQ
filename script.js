@@ -297,17 +297,3 @@ async function fetchLiveQueueStatus() {
 // Check for live updates every 5 seconds
 fetchLiveQueueStatus();
 setInterval(fetchLiveQueueStatus, 5000);
-
-
-/* Fallback demo oscillation only when backend is offline */
-setInterval(() => {
-    if (!backendConnected) {
-        queueData.cafe.count =
-            Math.max(
-                0,
-                queueData.cafe.count +
-                (Math.random() > 0.5 ? 1 : -1)
-            );
-        updateService("cafe");
-    }
-}, 10000);
