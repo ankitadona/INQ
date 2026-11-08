@@ -73,6 +73,9 @@ def estimate_printing_time(jobs_ahead: int, copies: int = 1, is_colour: bool = F
       P-015 (~10 ahead): ~9 mins
       P-020 (~15 ahead): ~13 mins
     """
+    if jobs_ahead == 0 and copies <= 1:
+        return 0, "No wait (Immediate)"
+
     # Base calculation: ~0.8 minutes per job ahead + small buffer for copies/color
     base_minutes = max(1, round(1 + (jobs_ahead * 0.8) + (copies * 0.1) + (1 if is_colour else 0)))
     ready_dt = datetime.now() + timedelta(minutes=base_minutes)
@@ -89,6 +92,9 @@ def estimate_cafe_prep_time(orders_ahead: int, items: List[Dict]) -> Tuple[int, 
     """
     Calculates preparation time based on items selected and orders ahead.
     """
+    if orders_ahead == 0 and not items:
+        return 0, "No wait (~3 mins)"
+
     base_item_prep = 3
     total_quantity = 0
 
@@ -117,6 +123,9 @@ def estimate_dean_wait_time(students_ahead: int, avg_duration_minutes: int = 3) 
     """
     Calculates Dean office wait time (~3 minutes per student).
     """
+    if students_ahead == 0:
+        return 0, "No wait (Walk in)"
+
     wait_minutes = max(avg_duration_minutes, students_ahead * avg_duration_minutes)
     ready_dt = datetime.now() + timedelta(minutes=wait_minutes)
     ready_time_str = ready_dt.strftime("%I:%M %p").lstrip("0")

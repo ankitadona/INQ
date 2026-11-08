@@ -78,46 +78,6 @@ def init_database():
                 MenuItem(name="Grilled Sandwich", price=45, prep_time_minutes=6),
             ])
             db.commit()
-
-        # Seed initial demo tokens if database is newly initialized
-        if db.query(TokenRecord).count() == 0:
-            # 4 students waiting at Dean
-            for i in range(1, 5):
-                db.add(TokenRecord(
-                    service_id="dean",
-                    token_number=f"D-{i:03d}",
-                    sequence=i,
-                    status="waiting",
-                    service_option="Document Verification",
-                    estimated_time="10:35 AM",
-                    estimated_wait_minutes=i * 3,
-                ))
-
-            # 11 jobs ahead at Printing
-            for i in range(1, 12):
-                db.add(TokenRecord(
-                    service_id="printing",
-                    token_number=f"P-{i:03d}",
-                    sequence=i,
-                    status="waiting",
-                    service_option="Print Job",
-                    estimated_time="11:20 AM",
-                    estimated_wait_minutes=5 + i,
-                ))
-
-            # 7 orders at Café
-            for i in range(1, 8):
-                db.add(TokenRecord(
-                    service_id="cafe",
-                    token_number=f"C-{i:03d}",
-                    sequence=i,
-                    status="waiting",
-                    service_option="Café Order",
-                    estimated_time="9:00–9:05 AM",
-                    estimated_wait_minutes=8 + i * 2,
-                ))
-
-            db.commit()
     finally:
         db.close()
 

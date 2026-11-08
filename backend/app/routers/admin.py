@@ -258,9 +258,13 @@ def complete_current_token(service_id: str, db: Session = Depends(get_db)):
 def reset_queue(service_id: str, db: Session = Depends(get_db)):
     """
     Clears all active tokens for a service to allow fresh testing.
+    If service_id is 'all', clears all tokens across all services.
     """
     service_id = service_id.lower()
-    db.query(TokenRecord).filter(TokenRecord.service_id == service_id).delete()
+    if service_id == "all":
+        db.query(TokenRecord).delete()
+    else:
+        db.query(TokenRecord).filter(TokenRecord.service_id == service_id).delete()
     db.commit()
 
     return {"message": f"Queue for {service_id} has been reset."}
